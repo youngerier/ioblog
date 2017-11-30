@@ -1,2 +1,2 @@
 # ioblog
-[gitlab](https://youngerier.github.io/ "github.io")
+[Github.IO](https://youngerier.github.io/ "github.io")
