@@ -13,7 +13,7 @@ tags: nuget ,netcore
 
 项目根目录运行
 
-```nil
+``` nil
  nuget pack .\[library-project.csproj] -Build -Properties owners=ziggle;version="1.0.0"
 ```
 > 示例 
@@ -21,21 +21,23 @@ tags: nuget ,netcore
 
 ## 2. push包到proget
 
-```nil
+``` nil
 nuget push  .\[library-project.1.0.0.nupkg]  -source https://api.nuget.org/v3/index.json -apikey [your-secoret-key]
+
 ```
 
-> netcore 使用
+## 3. netcore 使用步骤
 
-```nil
-dotnet pack  -c Release
-``` 
+> ### 3.1 pack & push
 
-> push 
-
-```nil
-dotnet nuget push  .\[library-project.1.0.0.nupkg]  -source https://api.nuget.org/v3/index.json -apikey [your-secoret-key]
+``` json
+    {
+        "pack": "dotnet pack  -c Release",
+        "push" : "dotnet nuget push  [library-project.1.0.0.nupkg]  -source https://api.nuget.org/v3/index.json -apikey [your-secoret-key]"
+    }
 ```
+
+
 
 ------------
 

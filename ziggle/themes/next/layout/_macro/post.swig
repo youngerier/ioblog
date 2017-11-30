@@ -265,6 +265,7 @@
       </header>
     {% endif %}
 
+<div class="semantic">
     {#################}
     {### POST BODY ###}
     {#################}
@@ -333,7 +334,7 @@
     {#####################}
     {### END POST BODY ###}
     {#####################}
-
+</div>
     {% if theme.wechat_subscriber.enabled and not is_index %}
       <div>
         {% include 'wechat-subscriber.swig' %}
