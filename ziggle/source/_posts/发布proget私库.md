@@ -9,11 +9,15 @@ tags: nuget ,netcore
 
 ## 1. 生成 .nupkg 文件
 
+
+
 项目根目录运行
 
 ```nil
  nuget pack .\[library-project.csproj] -Build -Properties owners=ziggle;version="1.0.0"
 ```
+> 示例 
+{% asset_img a.png 描述文件%}
 
 ## 2. push包到proget
 
@@ -26,6 +30,7 @@ nuget push  .\[library-project.1.0.0.nupkg]  -source https://api.nuget.org/v3/in
 ```nil
 dotnet pack  -c Release
 ``` 
+
 > push 
 
 ```nil

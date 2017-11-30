@@ -20,3 +20,11 @@ Archives: /archives/
 <a href="/"> Home </a>
 <a href="/gallery/"> Gallery </a>
 <a href="/archives/"> Archives </a>
+
+引用图片的方式 当前目录 .  
+![](../_images/save.png)
+
+相对路径引用的标签插件
+{% asset_path slug %}
+{% asset_img slug [title] %}
+{% asset_link slug [title] %}
