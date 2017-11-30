@@ -26,6 +26,7 @@ nuget push  .\[library-project.1.0.0.nupkg]  -source https://api.nuget.org/v3/in
 ```nil
 dotnet pack  -c Release
 ``` 
+> push 
 
 ```nil
 dotnet nuget push  .\[library-project.1.0.0.nupkg]  -source https://api.nuget.org/v3/index.json -apikey [your-secoret-key]
