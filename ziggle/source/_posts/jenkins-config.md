@@ -1,7 +1,7 @@
 ---
 title: jenkins-config
 date: 2017-12-05 09:54:36
-tags:
+tags: jenkins
 ---
 
 
