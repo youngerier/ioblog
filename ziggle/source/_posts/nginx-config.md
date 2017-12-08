@@ -1,7 +1,9 @@
 ---
 title: nginx-config
 date: 2017-12-08 12:52:36
-tags:  nginx
+tags: 
+    - nginx
+    - bash
 ---
 
 # Nginx settings
@@ -91,5 +93,31 @@ mail {
 
 ```yml
 
+
+```
+
+
+# shadowsocks进程检测 
+
+- 1  添加cron 任务
+```
+crontab -e 
+```
+- 2
+编辑crontab
+```
+* * * * *  /bin/sh /root/wp/ssscript.sh
+```
+- 3 编辑ssscript.sh 并且 chmod 775 ./ssscript.sh
+```bash 
+#!/bin/sh
+ps -fe|grep /usr/local/bin/ssserver|grep -v grep
+if [ $? -ne 0 ]
+then
+    /usr/local/bin/ssserver -c /etc/shadowsocks.json -d start
+    echo `date "+%Y-%m-%d %H:%M:%S"beenfunked` >> /root/wp/ss.log
+else
+    echo `date "+%Y-%m-%d %H:%M:%S"OK` >> /root/wp/ss.log
+fi
 
 ```
