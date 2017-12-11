@@ -87,6 +87,7 @@ mail {
 }
 
 ```
+<!-- more -->
 
 包含文件的例子
 - rails.conf

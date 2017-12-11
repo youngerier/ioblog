@@ -11,6 +11,7 @@ tags: jenkins
 {% asset_img jenkins_slave1.png slave_env_variable_config%}
 {% asset_img jenkins_slave2.png slave_env_variable_config%}
 
+<!-- more -->
 ## 项目配置
 
 {% asset_img project_config.png project_config%}

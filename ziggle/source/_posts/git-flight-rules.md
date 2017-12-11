@@ -28,6 +28,8 @@ tags:
 
 &mdash; Chris Hadfield, *一个宇航员的生活指南(An Astronaut's Guide to Life)*。
 
+<!-- more -->
+
 #### 这篇文章的约定
 
 为了清楚的表述，这篇文档里的所有例子使用了自定义的bash 提示，以便指示当前分支和是否有暂存的变化(changes)。分支名用小括号括起来，分支名后面跟的`*`表示暂存的变化(changes)。

@@ -26,3 +26,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque hendrerit 
 ```
 {% jsfiddle shorttag [tabs] [skin] [width] [height] %}
 ```
+
+
+### 显示文章预览
+
+``` nil
+Next 使用 <!-- more -->
+```
