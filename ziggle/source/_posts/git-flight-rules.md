@@ -1040,4 +1040,39 @@ git 分支操作
 - 4 删除远程分支
 - 4.1 git push --delete origin foo
 - 4.2 git push origin :foo
+#### git log --pretty=oneline  --abbrev-commit
+#### git commit --amend 修改提交msg
+git merge 出现冲突时 git状态为merging ,使用
+```nil
+git mergetool
+```
+ 查看并解决冲突
 
+#### .gitignore 添加忽略文件无效
+```
+git rm -r --cached . #注意 .
+# 重新添加文件
+git add .
+```
+#### 删除git缓存区文件
+```
+git clean -f 
+```
+
+#### 分支基本操作
+
+- git fetch 
+- git pull 会把fetch的数据做到版本库
+- git branch -a 查看所有分支
+- git checkout -b branch 以当前分支为基础创建分支并转到分支
+- git branch -d 删除已经merge的分支
+- git branch -D 删除分支
+
+- git merge branchname merge 一个分支
+
+
+#### git checkout 
+
+- git checkout 
+- 
+-
