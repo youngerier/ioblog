@@ -80,7 +80,7 @@ tags:
 语法：
 ```nil
 `command`
-```
+```ZZ
 - eg: 
 ```bash
 #!/bin/bash
