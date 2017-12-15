@@ -87,9 +87,11 @@ mail {
 }
 
 ```
+
 <!-- more -->
 
 包含文件的例子
+
 - rails.conf
 
 ```yml
@@ -101,17 +103,23 @@ mail {
 # shadowsocks进程检测 
 
 - 1  添加cron 任务
+
+```bash
+crontab -e
 ```
-crontab -e 
-```
+
 - 2
+
 编辑crontab
-```
+
+```bash
 * * * * *  /bin/sh /root/wp/ssscript.sh
 ```
+
 - 3 编辑ssscript.sh 并且 chmod 775 ./ssscript.sh
-```bash 
-#!/bin/sh
+
+```bash
+ #!/bin/sh
 ps -fe|grep /usr/local/bin/ssserver|grep -v grep
 if [ $? -ne 0 ]
 then
@@ -120,5 +128,18 @@ then
 else
     echo `date "+%Y-%m-%d %H:%M:%S"OK` >> /root/wp/ss.log
 fi
+```
 
+- python 调用系统命令
+
+```python
+#!/bin/python
+
+import os
+if __name__ == "__main__":
+    # os.chdir('/root/www/blog/')
+    os.system('git pull origin master')
+
+    # os.chdir('/root/www/resource/')
+    os.system('git pull origin master')
 ```

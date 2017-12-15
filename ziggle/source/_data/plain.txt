@@ -28,3 +28,8 @@ Archives: /archives/
 {% asset_path slug %}
 {% asset_img slug [title] %}
 {% asset_link slug [title] %}
+
+
+- [论坛](https://github.com/52fhy/shell-book/issues)
+
+- [01- Shell脚本学习--入门](chapter1.md)
