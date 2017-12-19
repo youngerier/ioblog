@@ -43,6 +43,7 @@ tags:
 清除 本地|系统变量
 
 ## exprot
+
 用于把变量变成当前shell 和其子shell 的环境变量,存活期是当前的shell 及其子shell ,因此重新登陆以后,它所设定的环境变量就消失了
 ## source
 
