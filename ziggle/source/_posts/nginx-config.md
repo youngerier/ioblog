@@ -98,7 +98,67 @@ mail {
 
 
 ```
+# 所有的动态页面交给tomcat 等处理
+```nil
 
+location ~ .(jsp|jspx|do)?$ {  
+    proxy_set_header Host $host;  
+    proxy_set_header X-Real-IP $remote_addr;  
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+    proxy_pass http://127.0.0.1:8080;  
+}  
+```
+# 所有静态文件由nginx直接读取
+```nil
+location ~ .*.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt  
+                |pdf|xls|mp3|wma)$ {   
+    expires 15d;   # 静态文件缓存时间 
+}  
+location ~ .*.(js|css)?$ {   
+    expires 1h;   
+}  
+```
+
+# nginx 中upstream轮询机制
+- 轮询 后端服务器down掉,可以自动删除
+```
+upstream bakend {  
+    server 192.168.1.10;  
+    server 192.168.1.11;  
+}  
+```
+- weight 
+```
+upstream bakend {  
+    server 192.168.1.10 weight=1;  
+    server 192.168.1.11 weight=2;  
+}  
+```
+- ip_hash 每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session不能跨服务器的问题。 
+如果后端服务器down掉，要手工down掉
+```
+
+upstream resinserver{  
+    ip_hash;  
+    server 192.168.1.10:8080;  
+    server 192.168.1.11:8080;  
+}  
+```
+
+- fair (插件) 根据相应时间有限分配
+```
+upstream resinserver{  
+    server 192.168.1.10:8080;  
+    server 192.168.1.11:8080;  
+    fair;  
+}  
+```
+# 定义错误页面
+```
+error_page   500 502 503 504 /50x.html;  
+location = /50x.html {  
+} 
+```
 
 # shadowsocks进程检测 
 
