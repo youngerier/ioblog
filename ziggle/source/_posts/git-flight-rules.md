@@ -1075,4 +1075,8 @@ git clean -f
 
 - git checkout 
 - 
--
+- git pull 出现冲突,放弃本地修改,使用远程内容强制覆盖本地代码
+``` bash
+git fetch --all  # 只是下载代码到本地，不进行合并操作
+git reset --hard origin/master  # 把HEAD指向最新下载的版本
+```
