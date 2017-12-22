@@ -7,6 +7,24 @@ tags:
 ## git 全局配置位置
 {% asset_img gitconfig_location.png gitconfig_location%}
 
+## 文件内容
+```ini
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = ziggle
+	email = muyue1125@gmail.com
+# [https]
+# 	proxy = https://127.0.0.1:8087
+# [http]
+# 	proxy = http://127.0.0.1:8087
+[merge]
+	tool = vimdiff  #vim diff tools
+```
+
 ## 配置git diff 工具
 
 > git config --global merge.tool
