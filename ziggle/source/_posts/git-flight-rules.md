@@ -1070,6 +1070,7 @@ git clean -f
 
 - git merge branchname merge 一个分支
 
+- git push origin :branchname #删除远程分支
 
 #### git checkout 
 
@@ -1080,3 +1081,5 @@ git clean -f
 git fetch --all  # 只是下载代码到本地，不进行合并操作
 git reset --hard origin/master  # 把HEAD指向最新下载的版本
 ```
+
+
