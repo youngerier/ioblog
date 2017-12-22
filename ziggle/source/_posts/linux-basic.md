@@ -114,3 +114,18 @@ python -V
 pip -V
 ```
 > CentOS yum会使用python 更改错误文件python版本为老版本
+
+## 清空文件内容
+> 方法1 
+
+```bash
+$ > access.log #or
+$ true > access.log #or
+$ cat /dev/null > access.log # or
+$ cp /dev/null  access.log #or
+$ echo > access.log
+```
+> 方法2
+```bash
+$ truncate -s 0 access.log
+```
