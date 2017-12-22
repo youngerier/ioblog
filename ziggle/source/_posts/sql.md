@@ -65,5 +65,28 @@ CONVERT (data_type [(length), expression,style)
 
 select CONVERT(VARCHAR ,GETDATE(),8) AS now_time
 ```
-
+<!-- more -->
 ## 聚合与分组
+> SUM,MAX,MIN,AVG(忽略null),COUNT
+聚合函数处理的是数据组
+
+
+- 求和函数
+只能对数字列进行求和
+```sql
+select sum(column_name)
+from  table_name
+```
+- 计数函数
+ * count(*) 计算表中行总是，即使为null，也计算在内
+ * count(column) 计算column包含的行的数码，不含null行
+```sql
+select count(*) as totalcount
+from table_name
+```
+
+- 求均值
+```sql
+select avg ([all/distinct] column_name)
+from table_name
+```
