@@ -44,3 +44,81 @@ public class ReentrantLockTest {
 ```
 
 <!-- more -->
+
+## java 静态代理
+
+```java
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class ProxyDemo {
+    public static void main(String[] args) {
+
+        //1.创建委托对象
+        AbsSubject real = new RealSub();
+        
+        //2.创建调用处理器对象
+        ProxyHandler handler = new ProxyHandler(real);
+        
+        //3.动态生成代理对象
+        AbsSubject proxySub = (AbsSubject)Proxy.newProxyInstance(real.getClass().getClassLoader(),
+                real.getClass().getInterfaces(), handler);
+        
+        //4.通过代理对象调用方法
+        proxySub.doJob();
+        proxySub.sum(3,  9);
+        int m = proxySub.multiply(3, 7);
+        System.out.println("multiply result is:"+m);
+    }
+}
+
+//被代理类的接口
+interface AbsSubject {
+    void doJob();
+    void sum(int a, int b);
+    int multiply(int a, int b);
+}
+
+//实际的被代理类
+class RealSub implements AbsSubject {
+
+    @Override
+    public void doJob() {
+        // TODO Auto-generated method stub
+        System.out.println("i am doing something");
+    }
+
+    @Override
+    public void sum(int a, int b) {
+        System.out.println(a+" + "+b+" = "+(a+b));
+    }
+
+    @Override
+    public int multiply(int a, int b) {
+        // TODO Auto-generated method stub
+        System.out.println(a+" * "+ b);
+        return a*b;
+    }
+    
+}
+
+//动态代理的内部实现,调用处理器类，即实现 InvocationHandler 接口
+//这个类的目的是指定运行时将生成的代理类需要完成的具体任务（包括Preprocess和Postprocess）
+//即代理类调用任何方法都会经过这个调用处理器类
+class ProxyHandler implements InvocationHandler {
+    private Object realSub;
+    
+    public ProxyHandler(Object object) {
+        realSub = object;
+    }
+    
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println("before");
+        Object res = method.invoke(realSub, args);
+        System.out.println("after");
+        return res;
+    }   
+}
+```
