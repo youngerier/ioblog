@@ -129,3 +129,12 @@ $ echo > access.log
 ```bash
 $ truncate -s 0 access.log
 ```
+
+
+## source 
+当修改 /etc/profile 文件时,立即生效文件
+```sh
+source filename # 或
+. filename
+```
+source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录
