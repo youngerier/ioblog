@@ -1074,6 +1074,39 @@ git clean -f
 
 - git push origin --delete {the_remote_branch}
 
+* 创建并检出分支: git checkout -b 新分支名称 新分支源分支
+- git checkout -b newbranchName master
+
+##### 分支合并
+- 合并方法
+  - 1、直接合并：把两条分支上的历史轨迹合并，交汇到一起
+  - 2、压合合并：一条分支上若干提交条目压合成一个提交条目，提交到另一条分支的末梢
+  - 3、拣选合并：拣选另一条分支上的某个提交条目的改动带到当前分支上
+- 直接合并
+  - git merge 分支名称
+      git checkout alternate
+      git add about.html
+      git commit -m "add about page"
+      git checkout master
+      git merge alternate
+- 压合合并
+  - git merge --squash 分支名称
+      git checkout -b contact master
+      git add contact.html
+      git commit -m "add contact file"
+      git commit -m "add contact file 2" -a
+      git checkout master
+      git merge --squash contact
+      git status
+      git commit -m "add contact page" -m "has primary and secondary email"
+- 拣选合并
+  - git cherry-pick 提交名称
+      git checkout contact
+      git commit -m "add contact 3" -a
+      [contact 6dbaf82]......
+      git checkout master
+      git cherry-pick 6dbaf82  /  git cherry-pick -n 6dbaf82
+  
 #### git checkout 
 
 - git checkout 
@@ -1086,3 +1119,5 @@ git reset --hard origin/master  # 把HEAD指向最新下载的版本
 ```
 #### git 指定克隆目录 并指定克隆深度
 >git clone  https://github.com/magicmonty/bash-git-prompt.git .directory_name  --depth=1
+
+#### 
