@@ -286,3 +286,17 @@ deb http://security.ubuntu.com/ubuntu/ xenial-security multiverse
 # deb-src http://security.ubuntu.com/ubuntu/ xenial-security multiverse
 
 ```
+
+
+
+```json
+{
+  "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        
+      }
+    }
+  }
+}
+```
