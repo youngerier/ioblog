@@ -7,11 +7,12 @@ tags:
 
 ## 修改表
 ```sql
-create table emp(
+create table if not exists emp(
     name varchar(10),
     hiredate date,
     sal decimal(10,2),
-    deptno int(2)
+    deptno int(2),
+    primary key(name)
 )
 
 desc emp
