@@ -122,3 +122,34 @@ class ProxyHandler implements InvocationHandler {
     }   
 }
 ```
+
+
+### Stream(Java 8)
+
+```java
+List<String> lists =Arrays.asList("a","b","c");
+Stream<String> streamList  = lists.stream();
+lists = streamList.distinct().finter(str->!str.equals("a").sorted(String::CompareTo).collect(ollectors.toList());
+lists.forEach(System.out::println);
+```
+
+> 创建Stream
+- 集合 Stream: stream()
+- 数组
+
+```java
+        //lambda
+        Collections.sort(strList, (s1, s2)->s1.compareTo(s2));
+        //方法引用
+        Collections.sort(strList, String::compareTo);
+        //lambda
+        strList.forEach(x->System.out.println(x));
+        //方法引用
+        strList.forEach(System.out::println);
+```
+* 方法引用的语法
+    - 对象::实例方法=>等价于"提供方法参数的lambda表达式"
+    - 类::静态方法=>等价于"提供方法参数的lambda表达式"
+        - eg. System.out::println等价于x->System.out.println(x)
+    - 类::实例方法=>第一个参数是执行方法的对象
+        - eg. String::compareTo等价于(s1, s2)->s1.compareTo(s2)

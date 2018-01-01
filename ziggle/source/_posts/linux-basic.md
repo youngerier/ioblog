@@ -138,3 +138,41 @@ source filename # 或
 . filename
 ```
 source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录
+
+## Linux network config
+```conf
+pi@raspberrypi:~ $ sudo cat /etc/network/interfaces
+# interfaces(5) file used by ifup(8) and ifdown(8)
+
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+# Include files from /etc/network/interfaces.d:
+# source-directory /etc/network/interfaces.d
+
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet static
+address 192.168.192.113
+netmask 255.255.255.0
+gateway 192.168.192.168
+```
+wpa_supplicant.conf
+```conf
+pi@raspberrypi:~ $ sudo cat /etc/wpa_supplicant/wpa_supplicant.conf 
+country=GB
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="wifi-name"
+    key_mgmt=WPA-PSK
+    psk="12345678"
+}
+```
