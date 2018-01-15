@@ -5,6 +5,29 @@ tags:
     -mysql
 ---
 
+## 开启远程连接(raspberry pi ,ubuntu )
+- 第一步
+```bash 
+root@rasp:~# vim /etc/mysql/mariadb.conf.d/50-server.cnf
+# bind-address = 127.0.0.1
+```
+- 第二步
+进入MySQL 
+```sql
+grant all privileges on *.* to root@"%" identified by "password" with grant option;
+flush privileges;
+```
+>第一行命令解释如下，.：第一个代表数据库名；第二个代表表名。这里的意思是所有数据库里的所有表都授权给用户。root：授予root账号。“%”：表示授权的用户IP可以指定，这里代表任意的IP地址都能访问MySQL数据库。“password”：分配账号对应的密码，这里密码自己替换成你的mysql root帐号密码。
+第二行命令是刷新权限信息，也即是让我们所作的设置马上生效。
+
+## 完全卸载mysql(Ver 15.1 Distrib 10.1.23-MariaDB)
+
+```sh
+sudo apt purge mysql-*
+sudo rm -rf /etc/mysql/ /var/lib/mysql
+sudo apt autoremove
+sudo apt autoclean
+```
 ## 修改表
 ```sql
 create table if not exists emp(
