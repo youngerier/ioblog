@@ -6,7 +6,7 @@ tags:
 ---
 
 
-```c#
+```csharp
  /// <summary>  
         ///  实体类序列化成xml  
         /// </summary>  

@@ -37,6 +37,17 @@ create table if not exists emp(
     deptno int(2),
     primary key(name)
 )
+# 创建简单索引
+create  INDEX  index_name on table_name (column_name)
+
+# 创建唯一索引
+create unique index index_name on table_name (colum_name)
+
+# 创建复合索引
+create index pIndex on persons (lastname, firstname)
+
+#删除索引
+drop index index_name on table_name
 
 desc emp
 
@@ -49,6 +60,10 @@ alter table emp change age age1 int(4)
 alter table emp modify age int(8);
 
 alter table emp rename empp;
+
+alter table persons alter city set default 'beijing'
+
+
 
 
 --dml
@@ -111,4 +126,12 @@ select * from dept
 union
 select * from emp
 
+```
+
+sql create view 
+```sql
+create view view_name as 
+select column_name (s)
+from table_name 
+where condition
 ```
