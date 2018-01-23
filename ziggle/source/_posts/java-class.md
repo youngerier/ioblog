@@ -20,3 +20,34 @@ Static：
 更进一步来说，static变量终究是存在jvm的内存中的，jvm下次重新运行时，肯定会清空里边上次运行的内容，包括方法区、常量区的内容。
 
 要实现某些变量在程序多次运行时都可以读取，那么必须要将变量存下来，即存到本地文件中。常用的数据存取格式：XML、JSON、Propertities类（类似map的键值对）等
+
+
+碰到一个类需要加载时，它们之间是如何协调工作的，即java是如何区分一个类该由哪个类加载器来完成呢。 在这里java采用了委托模型机制，这个机制简单来讲，就是“类装载器有载入类的需求时，会先请示其Parent使用其搜索路径帮忙载入，如果Parent 找不到,那么才由自己依照自己的搜索路径搜索类”
+
+```java
+public class Test{
+
+    public static void main(String[] arg){
+
+      ClassLoader c  = Test.class.getClassLoader();  //获取Test类的类加载器
+
+        System.out.println(c); 
+
+      ClassLoader c1 = c.getParent();  //获取c这个类加载器的父类加载器
+
+        System.out.println(c1);
+
+      ClassLoader c2 = c1.getParent();//获取c1这个类加载器的父类加载器
+
+        System.out.println(c2);
+
+  }
+
+}
+
+/**
+sun.misc.Launcher$AppClassLoader@73d16e93
+sun.misc.Launcher$ExtClassLoader@15db9742
+null
+ */
+```
