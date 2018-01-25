@@ -188,3 +188,23 @@ network={
 # nameserver 192.168.2.1
 nameserver 114.114.114.114
 ```
+
+### 再环境变量中设置代理
+> 配置环境变量
+```bash
+export http_proxy=http://127.0.0.1:1080
+export https_proxy=http://127.0.0.1:1080
+```
+> 使用配置文件(wget)
+
+为wget配置代理
+```nil
+~/.wgetrc
+# They will override the value in the environment.
+ http_proxy=http://127.0.0.1:1080
+ https_proxy=http://127.0.0.1:1080
+ ftp_proxy=http://127.0.0.1:1080
+# If you do not want to use proxy at all, set this to off.
+ use_proxy=on
+```
+

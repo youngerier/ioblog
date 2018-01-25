@@ -1,6 +1,6 @@
 ---
 title: docker
-date: 2018-01-22 23:53:42
+date: 2018-01-25 20:38:52
 tags:
     - docker 
 ---
@@ -17,6 +17,8 @@ ENV     设定环境变量
 ENTRYPOINT  容器入口
 USER     指定用户
 VOLUME  mount point
+
+## 最简实例
 ```DockerFile
 FROM ubuntu
 MAINTAINER z
@@ -26,4 +28,33 @@ RUN apt-get install -y nginx
 COPY index.html /var/www/html
 ENTRYPOINT ["/usr/sbin/nginx","-g","deamon off;"]
 EXPOSE  80
+```
+
+```javascript
+    const port = 9999;
+    let http = require('http');
+    let server = http.createServer((req, res) => {
+        res.end("hail hydra\n");
+    })
+    server.listen(port,()=>{
+        console.log(`listen at ${port}`)
+    })
+```
+
+
+```Dockerfile
+FROM  node
+RUN mkdir -p /home/app
+WORKDIR /home/app
+
+COPY . /home/app
+EXPOSE 9999
+CMD ["node","./server.js"]
+```
+
+```bash 
+# build 
+docker build -t appname .
+# run 
+docker run -d -p 9999:9999 appname  
 ```
