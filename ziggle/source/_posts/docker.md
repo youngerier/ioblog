@@ -4,19 +4,20 @@ date: 2018-01-25 20:38:52
 tags:
     - docker 
 ---
-
-FROM   base image
-RUN     执行命令
-ADD     添加文件
-COPY     拷贝文件
-CMD     执行命令
-EXPOST  暴露端口
-WORKDIR  指定路径
-MAINTAINER  维护者
-ENV     设定环境变量
-ENTRYPOINT  容器入口
-USER     指定用户
-VOLUME  mount point
+| 关键字|含义|
+| :------- | --------: |
+|FROM   |base image|
+|RUN    | 执行命令|
+|ADD     |添加文件|
+|COPY    | 拷贝文件|
+|CMD    | 执行命令|
+|EXPOST | 暴露端口|
+|WORKDIR | 指定路径|
+|MAINTAINER|  维护者|
+|ENV    | 设定环境变量|
+|ENTRYPOINT|  容器入口|
+|USER    | 指定用户|
+|VOLUME | mount point|
 
 ## 最简实例
 ```DockerFile
