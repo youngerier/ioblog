@@ -122,7 +122,7 @@ class ProxyHandler implements InvocationHandler {
     }   
 }
 ```
-
+<!-- more -->
 
 ### Stream(Java 8)
 
