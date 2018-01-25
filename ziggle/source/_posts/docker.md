@@ -27,3 +27,10 @@ COPY . /home/app
 EXPOSE 9999
 CMD ["node","./server.js"]
 ```
+
+```bash 
+# build 
+docker build -t appname .
+# run 
+docker run -d -p 9999:9999 appname  
+```
