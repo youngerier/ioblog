@@ -1120,4 +1120,7 @@ git reset --hard origin/master  # 把HEAD指向最新下载的版本
 #### git 指定克隆目录 并指定克隆深度
 >git clone  https://github.com/magicmonty/bash-git-prompt.git .directory_name  --depth=1
 
-#### 
+####  git clone 指定分支 
+```bash
+git clone -b dev https://github.com/cheft/minrouter.git
+```
