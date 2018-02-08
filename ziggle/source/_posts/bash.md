@@ -276,3 +276,27 @@ done
 
 ### function
 
+```bash
+print_something(){
+    echo hail hydra
+}
+
+print_something
+
+
+# Passing argumentt to a func
+
+print_something(){
+    echo hail $1
+}
+print_something hydra
+```
+
+> 变量作用范围
+```sh
+#!/bin/sh
+var_change(){
+    
+}
+```
+
