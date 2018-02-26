@@ -162,3 +162,29 @@ module.exports = Router
 ```
 art-template
 ```
+
+
+### 在使用jquery 对select 元素注册事件
+
+```javascript
+var select  =  document.getElementById('use_time');
+
+// 可以对 这个select元素进行
+select.change(function(){
+   console.log(111);
+            var index = select.selectedIndex;
+            if (index > 0) {
+                console.log(option[index].vlaue);
+            }
+})
+
+
+----
+//如果 
+var select =$('#use_time');
+
+// 对select 绑定change事件时不能用上面的code
+select.on('change',function(){
+  console.log('right');
+})
+```
