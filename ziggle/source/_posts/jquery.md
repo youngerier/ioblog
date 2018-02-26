@@ -187,4 +187,16 @@ var select =$('#use_time');
 select.on('change',function(){
   console.log('right');
 })
+
+
+----
+var select = $('#use_time');
+var option = select.options;
+select.on('change',function () {
+    console.log(111);
+    var index = select.selectedIndex;
+    if (index > 0) {
+        console.log(option[index].vlaue);
+    }
+});
 ```

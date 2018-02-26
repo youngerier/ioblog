@@ -82,6 +82,7 @@ deploy:
   type: git
   repo: https://github.com/youngerier/youngerier.github.io
   branch: master
+  message: update at {{ now('YYYY-MM-DD HH:mm:ss') }}
 
 
 # Search options
