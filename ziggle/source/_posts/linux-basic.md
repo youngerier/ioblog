@@ -269,7 +269,8 @@ $ sudo systemctl restart foobar
 
 开机启动
 ```sh
-root@ziggle:~# systemctl enable ssocks.service
+root@ziggle:~# 
+systemctl enable ssocks.service
 Created symlink from /etc/systemd/system/multi-user.target.wants/ssocks.service to /lib/systemd/system/ssocks.service.
 
 # 开机禁用
