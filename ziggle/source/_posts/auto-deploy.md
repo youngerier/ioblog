@@ -6,7 +6,7 @@ tags:
 ---
 ## systemd 守护进程
 
->收回node webhook进程 同步接受GitHub post请求
+>node webhook进程 同步接受GitHub post请求
 ```ini
 root@ziggle:~# cat /lib/systemd/system/nsync.service
 [Unit]
