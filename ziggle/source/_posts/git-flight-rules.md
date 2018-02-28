@@ -1124,3 +1124,12 @@ git reset --hard origin/master  # 把HEAD指向最新下载的版本
 ```bash
 git clone -b dev https://github.com/cheft/minrouter.git
 ```
+
+
+git CRLF /LF
+```sh
+git config core.autocrlf true
+
+# 全局配置 CRLF配置
+ git config --global core.autocrlf false
+```
