@@ -25,3 +25,8 @@ function chooseUseRegion() {
     });
 }
 ```
+#### 前端路由实现之 #hash
+
+前端路由实现方式 1 使用 h5 提供historyapi
+                2 使用hash 路由
+

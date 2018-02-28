@@ -234,3 +234,116 @@ top 结果分为两个部分
 
 
 top 命令交互:
+
+
+
+
+# Systemd 使用
+> 首先 *ssocks.service*
+``` conf
+root@ziggle:~# cat /lib/systemd/system/ssocks.service
+[Service]
+ExecStart=-/usr/local/bin/ssserver -c /etc/shadowsocks.json  start
+ExecReload=-/bin/kill -HUP $MAINPID
+TimeoutSec=10s
+Type=simple
+KillMode=process
+Restart=always
+RestartSec=2s
+
+[Install]
+WantedBy=multi-user.target
+```
+显示所有已启动的服务
+> systemctl list-units --type=service
+启动某服务
+> systemctl start httpd.service
+修改配置文件后重启
+```sh
+# 重新加载配置文件
+$ sudo systemctl daemon-reload
+
+# 重启相关服务
+$ sudo systemctl restart foobar
+```
+
+开机启动
+```sh
+root@ziggle:~# systemctl enable ssocks.service
+Created symlink from /etc/systemd/system/multi-user.target.wants/ssocks.service to /lib/systemd/system/ssocks.service.
+
+# 开机禁用
+systemctl disable ssocks.service
+
+#查看开机是否启动
+systemctl is-enabled ssocks.service #查询服务是否开机启动
+
+# systemd查看开机自启动的程序
+ls /etc/systemd/system/multi-user.target.wants/
+```
+
+*一旦修改配置文件，就要让 SystemD 重新加载配置文件，然后重新启动，否则修改不会生效。*
+```sh
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart ssocks.service
+```
+
+### systemd 系统管理命令
+```sh
+# 重启系统
+$ sudo systemctl reboot
+
+# 关闭系统，切断电源
+$ sudo systemctl poweroff
+
+# CPU停止工作
+$ sudo systemctl halt
+
+# 暂停系统
+$ sudo systemctl suspend
+
+# 让系统进入冬眠状态
+$ sudo systemctl hibernate
+
+# 让系统进入交互式休眠状态
+$ sudo systemctl hybrid-sleep
+
+# 启动进入救援状态（单用户状态）
+$ sudo systemctl rescue
+```
+
+## 配置文件的区块
+```conf
+Description：简短描述
+Documentation：文档地址
+Requires：当前 Unit 依赖的其他 Unit，如果它们没有运行，当前 Unit 会启动失败
+Wants：与当前 Unit 配合的其他 Unit，如果它们没有运行，当前 Unit 不会启动失败
+BindsTo：与Requires类似，它指定的 Unit 如果退出，会导致当前 Unit 停止运行
+Before：如果该字段指定的 Unit 也要启动，那么必须在当前 Unit 之后启动
+After：如果该字段指定的 Unit 也要启动，那么必须在当前 Unit 之前启动
+Conflicts：这里指定的 Unit 不能与当前 Unit 同时运行
+Condition：当前 Unit 运行必须满足的条件，否则不会运行
+Assert：当前 Unit 运行必须满足的条件，否则会报启动失败
+
+```
+
+* [Service]区块用来 Service 的配置，只有 Service 类型的 Unit 才有这个区块。它的主要字段如下。*
+```
+Type：定义启动时的进程行为。它有以下几种值。
+Type=simple：默认值，执行ExecStart指定的命令，启动主进程
+Type=forking：以 fork 方式从父进程创建子进程，创建后父进程会立即退出
+Type=oneshot：一次性进程，Systemd 会等当前服务退出，再继续往下执行
+Type=dbus：当前服务通过D-Bus启动
+Type=notify：当前服务启动完毕，会通知Systemd，再继续往下执行
+Type=idle：若有其他任务执行完毕，当前服务才会运行
+ExecStart：启动当前服务的命令
+ExecStartPre：启动当前服务之前执行的命令
+ExecStartPost：启动当前服务之后执行的命令
+ExecReload：重启当前服务时执行的命令
+ExecStop：停止当前服务时执行的命令
+ExecStopPost：停止当其服务之后执行的命令
+RestartSec：自动重启当前服务间隔的秒数
+Restart：定义何种情况 Systemd 会自动重启当前服务，可能的值包括always（总是重启）、on-success、on-failure、on-abnormal、on-abort、on-watchdog
+TimeoutSec：定义 Systemd 停止当前服务之前等待的秒数
+Environment：指定环境变量
+```
