@@ -347,3 +347,5 @@ Restart：定义何种情况 Systemd 会自动重启当前服务，可能的值�
 TimeoutSec：定义 Systemd 停止当前服务之前等待的秒数
 Environment：指定环境变量
 ```
+
+ref : http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html
