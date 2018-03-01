@@ -1124,3 +1124,9 @@ git reset --hard origin/master  # 把HEAD指向最新下载的版本
 ```bash
 git clone -b dev https://github.com/cheft/minrouter.git
 ```
+
+
+#### git 错误解决
+> Error: Warning: Permanently added the RSA host key for IP address '52.74.223.119' to the list of known hosts.
+
+{% asset_img github_sshkey.png gitbub_sshkey%}
