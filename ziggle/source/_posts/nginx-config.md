@@ -211,6 +211,7 @@ if __name__ == "__main__":
 	upstream consul {
 		server 127.0.0.1:8500;
 	}
+    # https 监听80端口可以让http重定向到https端口上。
 	server {
 		# listen at port 80
 		listen 80;
