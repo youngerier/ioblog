@@ -203,3 +203,55 @@ if __name__ == "__main__":
     # os.chdir('/root/www/resource/')
     os.system('git pull origin master')
 ```
+
+
+### nginx 配置ssl 
+```conf
+
+	upstream consul {
+		server 127.0.0.1:8500;
+	}
+	server {
+		# listen at port 80
+		listen 80;
+         # server_name www.example.com;
+        rewrite ^(.*) https://$host$1 permanent;  # 不用  $server_name ,使用$host 变量
+        
+#       location / {
+#	        	root /root/wp/www/public;
+#        	}
+#	    location /consul/ {
+#	        	proxy_pass http://consul/;
+#       	}
+		error_page 404 /404.html;
+		location = /404.html {
+			root /root/wp/www/;
+			internal;
+		}
+	}
+
+server {
+            listen 443 ssl;
+            ssl on;
+            ssl_session_timeout 5m;
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;     #指定SSL服务器端支持 协议版本
+            ssl_ciphers  HIGH:!aNULL:!MD5;
+            ssl_certificate /root/sslcert/ssl/certificate.crt;
+            ssl_certificate_key /root/sslcert/ssl/private.key;
+            ssl_prefer_server_ciphers on;
+
+                
+           	location / {
+	        	root /root/wp/www/public;
+        	}
+	        location /consul/ {
+	        	proxy_pass http://consul/;
+           	}
+            error_page 404 /404.html;
+            location = /404.html {
+                root /root/wp/www/;
+                internal;
+            }
+        }
+
+```
