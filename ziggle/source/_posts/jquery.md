@@ -200,3 +200,8 @@ select.on('change',function () {
     }
 });
 ```
+
+> 选择input 标签属性
+```js
+$('#table td > input:checked').each((i, j) => { ids.push(parseInt(j.getAttribute('adid'))) });
+```
