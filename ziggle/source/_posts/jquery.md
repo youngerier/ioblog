@@ -204,4 +204,20 @@ select.on('change',function () {
 > 选择input 标签属性
 ```js
 $('#table td > input:checked').each((i, j) => { ids.push(parseInt(j.getAttribute('adid'))) });
+
+
+  <table class="table table-striped table-hover">
+      <thead>
+          <tr>
+              <th class="table-checkbox">
+                  <input id="allUser" control="复选框" type="checkbox" class="group-checkable" data-set=".checkboxes" />
+              </th>
+              <th control="序号">序号</th>
+              <th control="讲师">用户</th>
+          </tr>
+      </thead>
+      <tbody id="userTable"></tbody>
+ </table>
+// 选择 input 上级 tbody 子元素 的input 属性
+ $(this).parents('thead').next().children().find('input').prop('checked' ,true);
 ```
