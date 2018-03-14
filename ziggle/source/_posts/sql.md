@@ -96,3 +96,18 @@ from table_name
 select avg ([all/distinct] column_name)
 from table_name
 ```
+
+
+```sql
+CREATE TABLE [dbo].[Learn_CouponSendJob] (
+[Id] bigint NOT NULL  PRIMARY KEY ,
+[UserId] bigint NULL ,
+[NickName] varchar(255) COLLATE Chinese_PRC_CI_AS NULL ,
+[AddTime] datetime2(7) NULL ,
+[IsDeleted] bit NULL ,
+[SendType] int NULL ,
+[SendId] int NULL ,
+[CouponId] int NOT NULL ,
+[IsNotice] bit NULL 
+)
+```
