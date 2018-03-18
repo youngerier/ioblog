@@ -259,3 +259,25 @@ AND t1.SendToId = t2.SendToId
 WHERE
 	t2.id IS NULL
 ```
+
+> 查询父表数据并 统计子表中的数量
+```sql
+SELECT
+	ROW_NUMBER () OVER (ORDER BY MAX(eg.addtime)) RowNum,
+	MAX (eg.title) title,
+	MAX (eg.id) id,
+	MAX (eg.ProductType) productType,
+	MAX (eg.ProductId) productId,
+	MAX (eg.addtime) addtime,
+	MAX (eg.begintime) begintime,
+	MAX (eg.endtime) endtime,
+	MAX (eg.total) total,
+	MAX (eg.status) status,
+	COUNT (e.GroupId) GetNum,
+	CASE WHEN COUNT (e.GroupId) = MAX(eg.total)  THEN	1 ELSE 0 end IsGen
+
+FROM
+	Learn_exchangeGroup eg WITH (nolock)
+LEFT JOIN Learn_exchange e WITH (nolock) ON e.GroupId = eg.id
+group by eg.id
+```
