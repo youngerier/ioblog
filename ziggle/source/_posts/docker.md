@@ -58,4 +58,29 @@ CMD ["node","./server.js"]
 docker build -t appname .
 # run 
 docker run -d -p 9999:9999 appname  
+
+# run container 
+docker start [container-id]
+```
+
+
+```bash
+# docker run --detach \
+# > --env GITLAB_OMNIBUS_CONFIG="gitlab_rails['lfs_enabled'] = true;" \
+# > --publish 88:80 --publish 222:22 --publish 4433:443 \
+# > --name gitlab \
+# > --restart always \
+# > --volume /root/home/gitlab/config:/etc/gitlab \
+# > --volume /root/home/gitlab/logs:/var/log/gitlab \
+# > --volume /root/home/gitlab/data:/var/opt/gitlab \
+# > --name gitlab gitlab/gitlab-ce:latest
+docker run --detach \
+    --hostname 192.168.192.186 \
+    --publish 4433:443 --publish 88:80 --publish 2222:22 \
+    --name gitlab \
+    --restart always \
+    --volume /root/home/gitlab/config:/etc/gitlab \
+    --volume /root/home/gitlab/logs:/var/log/gitlab \
+    --volume /root/home/gitlab/data:/var/opt/gitlab \
+    gitlab/gitlab-ce:latest
 ```
