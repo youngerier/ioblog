@@ -14,3 +14,11 @@ tags:
 )
  jvm负载一直居高不下，先使用了 top -c 查看当前进程详情
 使用
+
+遍历树时递归结构栈溢出
+
+jvm 参数要修改 -Xss 
+classpath :   String path = this.getClass().getResource("").getPath();
+
+Class.forName(xxx.xx.xxx) 返回一个类
+作用时要求jvm查找并加载指定的类，*也就是说JVM会执行该类的静态代码段*。
