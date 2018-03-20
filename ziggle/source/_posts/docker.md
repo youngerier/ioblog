@@ -19,6 +19,22 @@ tags:
 |USER    | 指定用户|
 |VOLUME | mount point|
 
+命令行参数说明
+|:------|------:|
+|--detach|容器后台运行|
+|--hostname|容器的 hostname|
+|--publish|端口转发规则|
+|--name|容器名称|
+|--restart always|-|
+|--volume|共享目录挂载|
+|--e|配置运行时环境变量|
+| --rm=false |指定容器停止后自动删除容器(不支持以docker run -d启动的容器)|
+| --expose=[]  |指定容器暴露的端口，即修改镜像的暴露端口|
+| --dns=[]   |指定容器的dns服务器|
+| --dns-search=[]  |指定容器的dns搜索域名，写入到容器的/etc/resolv.conf文件|
+| --entrypoint="" | 覆盖image的入口点|
+| -m | 设置容器使用内存最大值 == --memory=""|
+| --net="bridge" | 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；|
 ## 最简实例
 ```DockerFile
 FROM ubuntu
@@ -83,4 +99,17 @@ docker run --detach \
     --volume /root/home/gitlab/logs:/var/log/gitlab \
     --volume /root/home/gitlab/data:/var/opt/gitlab \
     gitlab/gitlab-ce:latest
+```
+```
+docker logs -f -t --since="2017-05-31" --tail=10 edu_web_1
+
+--since : 此参数指定了输出日志开始日期，即只输出指定日期之后的日志。
+
+-f : 查看实时日志
+
+-t : 查看日志产生的日期
+
+-tail=10 : 查看最后的10条日志。
+
+edu_web_1 : 容器名称
 ```

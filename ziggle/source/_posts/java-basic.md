@@ -200,3 +200,69 @@ AOP代理（AOP Proxy）: AOP框架创建的对象，包含通知。 在Spring�
 
 
 Spring提供了两种方式来生成代理对象: JDKProxy和Cglib，具体使用哪种方式生成由AopProxyFactory根据AdvisedSupport对象的配置来决定。默认的策略是如果目标类是接口，则使用JDK动态代理技术，否则使用Cglib来生成代理。下面我们来研究一下Spring如何使用JDK来生成代理对象，具体的生成代码放在JdkDynamicAopProxy这个类中
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+private static void demo2() {
+    Thread A = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            printNumber("A");
+        }
+    });
+    Thread B = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("B 开始等待 A");
+            try {
+                A.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            printNumber("B");
+        }
+    });
+    B.start();
+    A.start();
+}
+得到的结果如下：
+
+1
+2
+3
+4
+5
+6
+7
+8
+B 开始等待 A
+A print: 1
+A print: 2
+A print: 3
+ 
+B print: 1
+B print: 2
+B print: 3
+所以我们能看到 A.join() 方法会让 B 一直等待直到 A 运行完毕。
