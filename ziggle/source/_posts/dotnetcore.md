@@ -27,3 +27,7 @@ tags:
      }
  }
  ```
+
+ >Exception
+Q: Unhandled Exception: System.Net.HttpListenerException: Access is denied
+A: netsh http add urlacl url=http://+:11221/ user=everyone
