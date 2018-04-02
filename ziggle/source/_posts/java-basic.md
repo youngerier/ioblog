@@ -200,3 +200,25 @@ AOP代理（AOP Proxy）: AOP框架创建的对象，包含通知。 在Spring�
 
 
 Spring提供了两种方式来生成代理对象: JDKProxy和Cglib，具体使用哪种方式生成由AopProxyFactory根据AdvisedSupport对象的配置来决定。默认的策略是如果目标类是接口，则使用JDK动态代理技术，否则使用Cglib来生成代理。下面我们来研究一下Spring如何使用JDK来生成代理对象，具体的生成代码放在JdkDynamicAopProxy这个类中
+
+```
+修饰符介绍
+Java修饰符主要分为两类:
+
+访问修饰符
+非访问修饰符
+其中访问修饰符主要包括 private、default、protected、public。
+非访问修饰符主要包括 static、final、abstract、synchronized。
+
+访问修饰符
+访问修饰符可以使用下图这张表来说明访问权限:
+
+修饰符	当前类	同一包内	子类	其它包
+public	Y	Y	Y	Y
+protected	Y	Y	Y	N
+default	Y	Y	N	N
+private	Y	N	N	N
+简单点查看访问级别的话，级别是由低到高。
+
+ private＜default＜protected＜public
+```
