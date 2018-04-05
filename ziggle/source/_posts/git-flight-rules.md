@@ -2262,6 +2262,14 @@ git CRLF /LF
 ```sh
 git config core.autocrlf true
 
-# 全局配置 CRLF配置
- git config --global core.autocrlf false
+# 全局配置 CRLF配置 windows
+
+ git config --global core.autocrlf true
+ git config --global core.safecrlf true
+
+#linux
+
+ git config --global core.autocrlf input
+ git config --global core.safecrlf true
+
 ```
