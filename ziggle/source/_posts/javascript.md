@@ -47,3 +47,39 @@ function chooseUseRegion() {
 >隐藏跨域
 页面中api地址 /a?b=1&c=2
 {% asset_img 使用nginx支持跨域.png 隐藏跨域nginx配置 %}
+
+
+js map/reduce/filter/sort
+```js
+// map
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var results = arr.map(pow); // [1, 4, 9, 16, 25, 36, 49, 64, 81]
+console.log(results);
+// reduce
+var arr = [1, 3, 5, 7, 9];
+arr.reduce(function (x, y) {
+    return x + y;
+}); // 25
+
+// filter
+var arr = [1, 2, 4, 5, 6, 9, 10, 15];
+var r = arr.filter(function (x) {
+    return x % 2 !== 0;
+});
+r; // [1, 5, 9, 15]
+
+//sort
+
+var arr = [10, 20, 1, 2];
+arr.sort(function (x, y) {
+    if (x < y) {
+        return -1;
+    }
+    if (x > y) {
+        return 1;
+    }
+    return 0;
+});
+console.log(arr); // [1, 2, 10, 20]
+
+```
