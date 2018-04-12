@@ -2,4 +2,4 @@
 
 echo "hail from deploy.sh"
 
-cd ziggle && hexo g
+hexo g
