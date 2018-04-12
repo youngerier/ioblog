@@ -5,10 +5,10 @@ node_js:
 sudo: enabled
 # before_install: sudo npm install
 install:
+  - chmod +x ./deploy.sh
   - cd ./ziggle
   - npm install
 before_script:
-  - chmod +x ./deploy.sh
 # script: true
 script: sh ./deploy.sh
   
