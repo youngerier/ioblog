@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "9"
+
+sudo: enabled
 # before_install: sudo npm install
 install:
   - npm install
@@ -15,7 +17,7 @@ after_script:
   - git config user.email "muyue1125@gmail.com"
   - git add .
   - git commit -am "add/edit"
-  - git push --force --quiet "https://${github_token}@${GH_REF}" master:master
+  - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:master
 
 cache:
   directroies:
@@ -30,13 +32,13 @@ branches:
     - /^deploy-.*$/
 
 
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  keep-history: true
-  on:
-    branch: master
+# deploy:
+#   provider: pages
+#   skip-cleanup: true
+#   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+#   keep-history: true
+#   on:
+#     branch: master
 
 env:
   - PACKAGE_VERSION: "1.0.1"
