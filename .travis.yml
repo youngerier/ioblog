@@ -8,10 +8,10 @@ install:
   - npm install
 
 # script: true
-script: sudo ./deploy.sh
+script: ./deploy.sh
 
 after_script:
-  - cd ./public
+  - cd .ziggle/public
   - git init
   - git config user.name "travis-ci"
   - git config user.email "muyue1125@gmail.com"

@@ -1,3 +1,5 @@
 #!/bin/sh
 
-cd ./ziggle && hexo g
+echo "hail from deploy.sh"
+
+cd ziggle && hexo g
