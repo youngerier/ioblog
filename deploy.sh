@@ -1,3 +1,3 @@
 #!/bin/sh
 
-hexo g
+cd ./ziggle && hexo g

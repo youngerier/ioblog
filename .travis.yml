@@ -8,7 +8,7 @@ install:
   - npm install
 
 # script: true
-script: ./deploy.sh
+script: sudo ./deploy.sh
 
 after_script:
   - cd ./public
