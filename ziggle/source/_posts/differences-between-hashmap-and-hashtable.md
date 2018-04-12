@@ -25,3 +25,5 @@ A线程用CAS更新一个volatile变量，随后B线程用CAS更新这个volatil
 A线程用CAS更新一个volatile变量，随后B线程读这个volatile变量。
 
 volatile变量的读/写和CAS可以实现线程之间的通信 => **java concurrent包的基石** 
+
+{% asset_img concurrent.png concurrent%}

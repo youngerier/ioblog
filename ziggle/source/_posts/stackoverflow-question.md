@@ -2,11 +2,11 @@
 title: stackoverflow-question
 date: 2018-04-12 15:07:24
 tags:
-    -stackoverflow questions
+    - stackoverflow-questions
 ---
 
 ### 一行初始化ArrayList 
-
+```java
 ArrayList<String> places = new ArrayList<String>(){{
     add("A");
     add("B");
@@ -14,7 +14,7 @@ ArrayList<String> places = new ArrayList<String>(){{
 }};
 
 List<String> places = Arrays.asList("Buenos Aires", "Córdoba", "La Plata");
-
+```
 
 ### 使用maven创建带依赖的可执行jar 
 ```xml
@@ -35,7 +35,6 @@ List<String> places = Arrays.asList("Buenos Aires", "Córdoba", "La Plata");
     </plugin>
   </plugins>
 </build>
-and run 
 <build>
   <plugins>
     <plugin>
@@ -55,6 +54,8 @@ and run
 </build>
 
 ```
+and run 
+
 > mvn clean compile assembly:single
 
 

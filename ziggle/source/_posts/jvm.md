@@ -106,3 +106,45 @@ jstack 79376 > thread.txt
 >可视化查看 jvm 内存dump
 
 >jhat -port 5000 dump.bin
+
+## java 自带内存/cpu(线程)分析工具
+
+> jps -vl
+
+展示操作系统里面的java应用 显示pid
+```cmd
+E:\Doc\GitRepo\ioblog\ziggle [master ≡ +0 ~1 -0 !]> jps
+112292 Launcher
+48872
+115272 Jps229016 Main
+37292 DemoApplication
+```
+> jinfo -flags PID
+显示 System.getProperties()
+```
+E:\Doc\GitRepo\ioblog\ziggle [master ≡ +0 ~1 -0 !]> jinfo -sysprops 37292
+Attaching to process ID 37292, please wait...
+Debugger attached successfully.
+Server compiler detected.
+java.vm.specification.name = Java Virtual Machine Specification
+PID = 37292
+java.runtime.version = 1.8.0_144-b01
+........ 
+```
+
+
+> jstat -gc PID
+显示JVM的各个内存区使用情况（容量和使用量），GC的次数和耗时。可以通过命令jstat -class PID查看class的加载情况。
+```
+E:\Doc\GitRepo\ioblog\ziggle [master ≡ +0 ~1 -0 !]> jstat -gc 37292 
+S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT
+16384.0 17408.0  0.0    0.0   245760.0 205516.6  138752.0   37613.3   59096.0 58195.3 7640.0 7388.5     13    0.192   3      0.502    0.695
+```
+> jstack PID
+查看线程运行情况，检测是否有死锁。
+
+> jconsole
+JDK提供的一个可视化资源查看，监控工具。
+
+> jvisualvm
+JDK提供的另外一个一站式资源查看，监控，管理工具。支持插件机制，可以自己安装插件，定制jvisualvm。常用的是Visual GC插件。也可以通过该工具dump JVM的堆。也可以导入已经dump出来的堆信息进行分析
