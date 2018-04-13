@@ -65,3 +65,13 @@ and run
 int[] a = [1,2,3,4,5];
 boolean contains = IntStream.of(a).anyMatch(x->x==3);
 ```
+
+### 什么时候使用静态方法
+
+{% blockquote [not-just-yeti[, source]] [https://stackoverflow.com/questions/2671496/java-when-to-use-static-methods] [source_link_title] %}
+One rule-of-thumb: ask yourself "does it make sense to call this method, even if no Obj has been constructed yet?" If so, it should definitely be static.
+
+So in a class Car you might have a method double convertMpgToKpl(double mpg) which would be static, because one might want to know what 35mpg converts to, even if nobody has ever built a Car. But void setMileage(double mpg) (which sets the efficiency of one particular Car) can't be static since it's inconceivable to call the method before any Car has been constructed.
+
+(Btw, the converse isn't always true: you might sometimes have a method which involves two Car objects, and still want it to be static. E.g. Car theMoreEfficientOf( Car c1, Car c2 ). Although this could be converted to a non-static version, some would argue that since there isn't a "privileged" choice of which Car is more important, you shouldn't force a caller to choose one Car as the object you'll invoke the method on. This situation accounts for a fairly small fraction of all static methods, though.)
+{% endblockquote %}
