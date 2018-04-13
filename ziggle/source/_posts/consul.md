@@ -77,3 +77,32 @@ agent 配置选项
 
 - -http-addr
 指定用户接口 包括 http,dns 接口 默认是localhost ,使用
+
+
+```yml
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}
+        health-check-path: /health-check
+        health-check-interval: 10s
+        tags: foo=bar,baz
+      config:
+        enabled: true
+        fail-fast: true
+        prefix: config #consul 自定义配置的文件夹的前缀 默认为config  service/"服务名"/"服务tag"/config
+        data-key: configuration  # 指定consul配置的配置文件为configuration
+        default-context: ${spring.application.name} # consul配置的配置文件父路径
+        format: properties
+        acl-token: 59ac2b0e-c500-4c38-8df8-dadfc4505edf
+
+  application:
+    name: myconfigapp
+```
+
+{% asset_img consulconfig.png consulconfig.png %}
+
+<!-- more -->
