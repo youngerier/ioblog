@@ -65,7 +65,7 @@ and run
 int[] a = [1,2,3,4,5];
 boolean contains = IntStream.of(a).anyMatch(x->x==3);
 ```
-
+<!-- more -->
 ### 什么时候使用静态方法
 
 {% blockquote [not-just-yeti[, source]] [https://stackoverflow.com/questions/2671496/java-when-to-use-static-methods] [source_link_title] %}
