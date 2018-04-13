@@ -24,7 +24,7 @@ after_script:
 
 cache:
   directroies:
-    - node_modules
+    - ziggle/node_modules
 
 git:
   depth: 2
