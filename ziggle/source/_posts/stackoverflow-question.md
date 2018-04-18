@@ -75,3 +75,17 @@ So in a class Car you might have a method double convertMpgToKpl(double mpg) whi
 
 (Btw, the converse isn't always true: you might sometimes have a method which involves two Car objects, and still want it to be static. E.g. Car theMoreEfficientOf( Car c1, Car c2 ). Although this could be converted to a non-static version, some would argue that since there isn't a "privileged" choice of which Car is more important, you shouldn't force a caller to choose one Car as the object you'll invoke the method on. This situation accounts for a fairly small fraction of all static methods, though.)
 {% endblockquote %}
+
+
+
+
+### 是不是final block 一定会被执行
+
+是的, *final* 一定会被执行 除了 
+1 调用 System.exit();
+2 JVM 在执行final快前崩溃
+3 try 块 又死循环 等
+4 JVM 进行被强行终止
+5 系统崩溃 ..
+
+
