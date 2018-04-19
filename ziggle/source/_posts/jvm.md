@@ -148,3 +148,11 @@ JDK提供的一个可视化资源查看，监控工具。
 
 > jvisualvm
 JDK提供的另外一个一站式资源查看，监控，管理工具。支持插件机制，可以自己安装插件，定制jvisualvm。常用的是Visual GC插件。也可以通过该工具dump JVM的堆。也可以导入已经dump出来的堆信息进行分析
+
+### 动态开启jvm gc 日志
+
+```
+jinfo  -flag +PrintGCDetails <pid>
+
+jstat -gcutil <pid> 1000
+```
