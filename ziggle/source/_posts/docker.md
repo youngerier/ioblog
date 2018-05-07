@@ -113,3 +113,12 @@ docker logs -f -t --since="2017-05-31" --tail=10 edu_web_1
 
 edu_web_1 : 容器名称
 ```
+### 三个基本概念
+- `Image` 镜像
+- `Container` 容器
+- `Repository` 仓库
+
+
+
+
+

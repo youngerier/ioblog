@@ -123,3 +123,32 @@ union (会把相同记录合并)
 -- 插入 数据
  insert into b select * from person
 ```
+
+### mysql 默认事务隔离级别
+
+
+|事务隔离级别	|脏读	|不可重复读|	幻读||
+|------------|------------|------------|------------|------------|
+|读未提交（read-uncommitted）|	是|	是|	是|
+|不可重复读（read-committed）|	否|	是|	是|SQL server 默认级别|
+|可重复读（repeatable-read）|	否|否|	是| mysql 默认级别
+|串行化（serializable）|	否|	否	|否|
+
+```cmd
+mysql> select @@tx_isolation;
++-----------------+
+| @@tx_isolation  |
++-----------------+
+| REPEATABLE-READ |
++-----------------+
+1 row in set (0.00 sec)
+
+```
+
+ - set session transaction isolation level read committed;
+
+ - start transaction ;
+ - commit;
+
+
+ 隔离级别越高，越能保证数据的完整性和一致性，但是对并发性能的影响也越大，鱼和熊掌不可兼得啊。对于多数应用程序，可以优先考虑把数据库系统的隔离级别设为Read Committed，它能够避免脏读取，而且具有较好的并发性能。尽管它会导致不可重复读、幻读这些并发问题，在可能出现这类问题的个别场合，可以由应用程序采用悲观锁或乐观锁来控制。
