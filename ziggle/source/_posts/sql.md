@@ -111,3 +111,15 @@ CREATE TABLE [dbo].[Learn_CouponSendJob] (
 [IsNotice] bit NULL 
 )
 ```
+
+union (会把相同记录合并)
+去多个select 结果集的合并 union 中select 语句必须有相同数量的列,列的数据类型要相似(可以转换) 每条select 的列的顺序必须相同
+
+
+```sql
+-- 从已有表创建表结构
+ select * into b  from person where 1<>1
+
+-- 插入 数据
+ insert into b select * from person
+```

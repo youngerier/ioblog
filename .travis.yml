@@ -42,6 +42,7 @@ branches:
 #   keep-history: true
 #   on:
 #     branch: master
+#     tags: true
 
 env:
   - PACKAGE_VERSION: "1.0.1"

@@ -87,5 +87,12 @@ So in a class Car you might have a method double convertMpgToKpl(double mpg) whi
 3 try 块 又死循环 等
 4 JVM 进行被强行终止
 5 系统崩溃 ..
+### java bean 是什么
+JavaBean 是一个标准, 体格惯例
+1 所有的属性都是private
+2 有一个无参的构造函数
+3 实现Serializable
 
+### StringBuffer 与 StringBuilder 的区别
+StringBuffer 是同步的 而 StringBuild不是
 
