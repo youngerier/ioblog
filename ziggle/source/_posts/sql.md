@@ -152,3 +152,42 @@ mysql> select @@tx_isolation;
 
 
  隔离级别越高，越能保证数据的完整性和一致性，但是对并发性能的影响也越大，鱼和熊掌不可兼得啊。对于多数应用程序，可以优先考虑把数据库系统的隔离级别设为Read Committed，它能够避免脏读取，而且具有较好的并发性能。尽管它会导致不可重复读、幻读这些并发问题，在可能出现这类问题的个别场合，可以由应用程序采用悲观锁或乐观锁来控制。
+
+
+ ``` sql
+
+CREATE PROCEDURE proc_test(
+	@name VARCHAR(12),
+	@money int output
+)
+
+AS
+BEGIN
+if(@name = '1')
+	set @money=10000
+ELSE	
+	SET @money=2
+END
+
+DECLARE @m INT
+PRINT( CAST( ISNULL(@m ,111) as VARCHAR) + ' a')
+exec proc_test @name='1' ,@money=@m output
+PRINT(CAST(@m as VARCHAR) + ' b')
+```
+
+### 获取今天 开始/结束时间
+```sql
+SELECT
+	COUNT (1)
+FROM
+	learn_cutdownlog WITH (nolock)
+WHERE
+	iscaptain = 0
+AND userid = 307
+AND addtime >CONVERT(DATETIME,CONVERT(CHAR(10), DATEADD(DAY,-0,GETDATE()),120) + ' 00:00:00',120)
+AND CONVERT(DATETIME,CONVERT(CHAR(10), GETDATE(),120) + ' 23:59:59',120) > addtime
+
+
+SELECT  CONVERT(DATETIME,CONVERT(CHAR(10), DATEADD(DAY,-0,GETDATE()),120) + ' 00:00:00',120);
+SELECT  CONVERT(DATETIME,CONVERT(CHAR(10), GETDATE(),120) + ' 23:59:59',120);
+```
