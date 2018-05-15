@@ -38,11 +38,12 @@ tags:
 |-XX:+PrintGCApplicationStoppedTime|	打印由GC产生的停顿时间|
 
 # 对内存分区情况截图
-{% edenspace.png eden-space %} 
 
-{% survivorspace.png survivor-space %} 
+{% asset_img edenspace.png eden-space %} 
 
-{% oldgen.png old-gen %} 
+{% asset_img survivorspace.png survivor-space %} 
+
+{% asset_img oldgen.png old-gen %} 
 
 
 
