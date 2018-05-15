@@ -4,6 +4,46 @@ date: 2018-02-24 18:51:17
 tags:
     -jvm
 ---
+## JVM小工具
+在${JAVA_HOME}/bin/目录下Sun/Oracle给我们提供了一些处理应用程序性能问题、定位故障的工具, 包含
+
+|bin	|描述|	功能|
+| :------- | --------: | :---: |
+|jps	|打印Hotspot VM进程	|VMID、JVM参数、main()函数参数、主类名/Jar路径
+|jstat	|查看Hotspot VM 运行时信息|	类加载、内存、GC[可分代查看]、JIT编译
+|jinfo	|查看和修改虚拟机各项配置|	-flag name=value
+|jmap	|heapdump: 生成VM堆转储快照、查询finalize执行队列、Java堆和永久代详细信息|	jmap -dump:live,ormat=b,file=heap.bin [VMID]
+|jstack	|查看VM当前时刻的线程快照: 当前VM内每一条线程正在执行的方法堆栈集合	|Thread.getAllStackTraces()提供了类似的功能
+|javap	|查看经javac之后产生的JVM字节码代码 |  自动解析.class文件, 避免了去理解class文件格式以及手动解析 class文件内容
+|jcmd	|一个多功能工具, 可以用来导出堆, 查看Java进程、导出线程信息、 执行GC、查看性能相关数据等|	几乎集合了jps、jstat、jinfo、jmap、jstack所有功能
+|jconsole|	基于JMX的可视化监视、管理工具	|可以查看内存、线程、类、CPU信息, 以及对JMX MBean进行管理
+|jvisualvm|	JDK中最强大运行监视和故障处理工具|	可以监控内存泄露、跟踪垃圾回收、执行时内存分析、CPU分析、线程分析…
+
+
+
+## VM常用参数整理
+|参数	|描述|
+| :------- | :---: |
+|-Xms	|最小堆大小|
+|-Xmx	|最大堆大小|
+|-Xmn	|新生代大小|
+|-XX:PermSize	|永久代大小|
+|-XX:MaxPermSize|	永久代最大大小|
+|-XX:+PrintGC	|输出GC日志|
+|-verbose:gc	|-|
+|-XX:+PrintGCDetails	|输出GC的详细日志|
+|-XX:+PrintGCTimeStamps	|输出GC时间戳(以基准时间的形式)|
+|-XX:+PrintHeapAtGC|	在进行GC的前后打印出堆的信息|
+|-Xloggc:/path/gc.log|	日志文件的输出路径|
+|-XX:+PrintGCApplicationStoppedTime|	打印由GC产生的停顿时间|
+
+# 对内存分区情况截图
+{% edenspace.png eden-space %} 
+
+{% survivorspace.png survivor-space %} 
+
+{% oldgen.png old-gen %} 
+
 
 
 - 生产故障JVM 进程cpu 占用率一直100%
@@ -106,7 +146,7 @@ jstack 79376 > thread.txt
 >可视化查看 jvm 内存dump
 
 >jhat -port 5000 dump.bin
-
+<!-- more -->
 ## java 自带内存/cpu(线程)分析工具
 
 > jps -vl

@@ -191,3 +191,15 @@ AND CONVERT(DATETIME,CONVERT(CHAR(10), GETDATE(),120) + ' 23:59:59',120) > addti
 SELECT  CONVERT(DATETIME,CONVERT(CHAR(10), DATEADD(DAY,-0,GETDATE()),120) + ' 00:00:00',120);
 SELECT  CONVERT(DATETIME,CONVERT(CHAR(10), GETDATE(),120) + ' 23:59:59',120);
 ```
+
+
+### 删除sql server 数据库
+
+```sql
+use master
+GO
+alter database test set single_user with rollback immediate
+GO
+DROP DATABASE test
+GO
+```
