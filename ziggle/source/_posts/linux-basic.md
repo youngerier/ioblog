@@ -350,3 +350,9 @@ Environment：指定环境变量
 ```
 
 ref : http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html
+
+sh 使用公钥连接
+
+```sh
+ssh -i ~/.ssh/my-ssh-key [USERNAME]@[EXTERNAL_IP_ADDRESS]
+```
