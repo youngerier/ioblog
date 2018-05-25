@@ -57,3 +57,10 @@ git config --global alias.tree "log --oneline --decorate --all --graph"
 
 
 ### 代理
+
+
+
+### 
+```sh
+$ git rm -r -n --cached "bin/"   ，此命令是展示要删除的文件表预览
+```
