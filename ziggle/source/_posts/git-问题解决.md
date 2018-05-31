@@ -19,3 +19,48 @@ From http://git.xueanquan.cc/dotnet/live/LearnOnlineAPI
 $ git gc --prune=now
 git remote prune origin
 ```
+## 全局配置
+~/.gitconfig
+```ini
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = ziggle
+	email = muyue1125@gmail.com
+# [https]
+# 	proxy = https://127.0.0.1:8087
+# [http]
+# 	proxy = http://127.0.0.1:8087
+[merge]
+	tool = vimdiff
+[credential]
+	helper = wincred
+
+
+[alias]
+	tree = log --oneline --decorate --all --graph
+
+# [include]
+#     path = 
+
+```
+
+### 别名 
+
+```
+git config --global alias.tree "log --oneline --decorate --all --graph"
+```
+
+
+
+### 代理
+
+
+
+### 
+```sh
+$ git rm -r -n --cached "bin/"   ，此命令是展示要删除的文件表预览
+```

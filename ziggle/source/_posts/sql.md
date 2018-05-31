@@ -191,3 +191,129 @@ AND CONVERT(DATETIME,CONVERT(CHAR(10), GETDATE(),120) + ' 23:59:59',120) > addti
 SELECT  CONVERT(DATETIME,CONVERT(CHAR(10), DATEADD(DAY,-0,GETDATE()),120) + ' 00:00:00',120);
 SELECT  CONVERT(DATETIME,CONVERT(CHAR(10), GETDATE(),120) + ' 23:59:59',120);
 ```
+
+
+### 删除sql server 数据库
+
+```sql
+use master
+GO
+alter database test set single_user with rollback immediate
+GO
+DROP DATABASE test
+GO
+```
+
+
+
+# csql bulkcopy
+```csharp
+  static void Main()
+        {
+         
+            string connectionString = GetConnectionString();
+            // Open a sourceConnection to the AdventureWorks database.
+            using (SqlConnection sourceConnection =
+                new SqlConnection(connectionString))
+            {
+                var sw = new Stopwatch();
+                sw.Start();
+                sourceConnection.Open();
+
+                // Perform an initial count on the destination table.
+                SqlCommand commandRowCount = new SqlCommand($@"SELECT
+			                                                    count(1)
+		                                                    FROM
+			                                                    Learn_User u WITH (NOLOCK)
+		                                                    WHERE
+			                                                    u.PayCnt = 0", sourceConnection);
+                long countStart = System.Convert.ToInt32(
+                    commandRowCount.ExecuteScalar());
+                Console.WriteLine("Starting row count = {0}", countStart);
+
+                // Get data from the source table as a SqlDataReader.
+                SqlCommand commandSourceData = new SqlCommand($@"SELECT
+			                                                u.Id AS UserId,
+			                                                NickName,
+			                                                80 AS SendId,
+			                                                3 AS CouponId,
+			                                                1 AS IsNotice ,
+                                                            GETDATE() AS SendTime,
+                                                            1 AS SendStatus ,
+			                                                GetDate() AS AddTime,
+			                                                0 AS IsDeleted,
+			                                                - 1 AS SendToId
+		                                                FROM
+			                                                Learn_User u WITH (NOLOCK)
+		                                                WHERE
+			                                                u.PayCnt = 0", sourceConnection);
+                SqlDataReader reader =
+                    commandSourceData.ExecuteReader();
+
+                // Open the destination connection. In the real world you would 
+                // not use SqlBulkCopy to move data from one table to the other 
+                // in the same database. This is for demonstration purposes only.
+                using (SqlConnection destinationConnection =
+                    new SqlConnection(connectionString))
+                {
+                    destinationConnection.Open();
+
+                    // Set up the bulk copy object. 
+                    // Note that the column positions in the source
+                    // data reader match the column positions in 
+                    // the destination table so there is no need to
+                    // map columns.
+                    using (SqlBulkCopy bulkCopy =
+                        new SqlBulkCopy(destinationConnection))
+                    {
+                        bulkCopy.DestinationTableName ="dbo.Learn_CouponSendJob";
+                        bulkCopy.ColumnMappings.Add(0, 1);
+                        bulkCopy.ColumnMappings.Add(1, 2);
+                        bulkCopy.ColumnMappings.Add(2, 3);
+                        bulkCopy.ColumnMappings.Add(3, 4);
+                        bulkCopy.ColumnMappings.Add(4, 5);
+                        bulkCopy.ColumnMappings.Add(5, 6);
+                        bulkCopy.ColumnMappings.Add(6, 7);
+                        bulkCopy.ColumnMappings.Add(7, 8);
+                        bulkCopy.ColumnMappings.Add(8, 9);
+                        bulkCopy.ColumnMappings.Add(9, 10);
+                        bulkCopy.BulkCopyTimeout = 30 * 10;
+                        try
+                        {
+                            // Write from the source to the destination.
+                            bulkCopy.WriteToServer(reader);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        finally
+                        {
+                            // Close the SqlDataReader. The SqlBulkCopy
+                            // object is automatically closed at the end
+                            // of the using block.
+                            reader.Close();
+                        }
+                    }
+                    sw.Stop();
+                    Console.WriteLine(" elaps :     " + sw.ElapsedMilliseconds/100 + " s");
+                    // Perform a final count on the destination 
+                    // table to see how many rows were added.
+                    long countEnd = System.Convert.ToInt32(
+                        commandRowCount.ExecuteScalar());
+                    Console.WriteLine("Ending row count = {0}", countEnd);
+                    Console.WriteLine("{0} rows were added.", countEnd - countStart);
+                    Console.WriteLine("Press Enter to finish.");
+                    Console.ReadLine();
+                }
+            }
+        }
+
+        private static string GetConnectionString()
+            // To avoid storing the sourceConnection string in your code, 
+            // you can retrieve it from a configuration file. 
+        {
+            return
+                $@"Server=d01.xueanquan.cc;Database=LearnOnline;User Id=dev;Password=0F29FF9D-9D91-4420-B2F6-1BFC4B01D6BF;MultipleActiveResultSets=true;";
+        }
+```
