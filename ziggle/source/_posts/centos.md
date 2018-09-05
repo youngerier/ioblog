@@ -67,3 +67,25 @@ sudo tee /etc/docker/daemon.json <<- 'EOF'
     "registry-mirrors":["https://registry.docker-cn.com"]
 }
 ```
+
+# nginx 静态文件代理服务器 403
+
+> 权限不够
+
+
+> selinux 需要关闭
+
+临时
+
+```sh
+getenforce
+
+setenforce 0
+```
+
+永久 vim /etc/sysconfig/selinux
+
+```sh
+SELINUX=disabled
+```
+
