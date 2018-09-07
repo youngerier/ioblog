@@ -64,3 +64,15 @@ git config --global alias.tree "log --oneline --decorate --all --graph"
 ```sh
 $ git rm -r -n --cached "bin/"   ，此命令是展示要删除的文件表预览
 ```
+
+## Unstaging a Staged File
+
+```git
+git reset HEAD benchmarks.rb
+```
+
+## Unmodifying a Modified File
+
+```git
+git checkout --benchmarks.rb
+```
