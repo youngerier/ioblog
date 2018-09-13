@@ -4,7 +4,7 @@ date: 2018-09-05 14:22:56
 tags:
 ---
 
-# config linux static ip
+# CONFIG  STATIC IP
 
 vim /etc/sysconfig/network-scripts/ifcfg-XXXX
 
