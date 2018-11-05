@@ -12,3 +12,10 @@ sc create consulserver binPath= "D:\consul\consul.exe agent -config-file  D:\con
 ```
 
 - run with cmd  and administrator
+
+
+vmware esxi 6 许可证
+
+```
+0U0QJ-FR1EP-KZQN9-J1C74-23P5R
+```
