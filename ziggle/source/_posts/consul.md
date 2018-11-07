@@ -106,3 +106,61 @@ spring:
 {% asset_img consulconfig.png consulconfig.png %}
 
 <!-- more -->
+
+
+consul 单节点配置
+
+```json
+[root@java-web-ci data]# cat /etc/consul/conf/consul.json 
+{
+    "datacenter": "dc-1",
+    "data_dir": "./data",
+    "log_level": "INFO",
+    "node_name": "n01",
+    "server": true,
+    "ui": true,
+    "bind_addr": "0.0.0.0",
+    "client_addr": "0.0.0.0",
+    "bootstrap_expect": 1,
+    "retry_interval": "3s",
+    "raft_protocol": 3,
+    "enable_debug": false,
+    "rejoin_after_leave": true,
+    "enable_syslog": false
+}
+
+```
+
+
+acl.json
+```json
+[root@java-web-ci data]# cat /etc/consul/conf/acl.json 
+{
+    "acl_datacenter": "dc-1",
+    "acl_default_policy": "deny",
+    "acl_down_policy": "deny",
+    "acl_master_token": "TnS03PiBEmvAALZ1fFRW7g=="
+  }
+```
+
+consul systemd
+
+```conf
+[root@java-web-ci data]# cat /etc/systemd/system/consul.service 
+[Unit]
+Description=Consul Service
+After=network.target
+
+[Service]
+Type=simple
+# Another Type option: forking
+User=root
+ExecStart=/usr/local/bin/consul agent -config-dir=/etc/consul/conf/
+Restart=always
+RestartSec=1
+# Other Restart options: or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target
+```
+{% asset_img consul_env.png consul_env.png %}
