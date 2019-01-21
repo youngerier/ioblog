@@ -119,6 +119,11 @@ edu_web_1 : 容器名称
 - `Repository` 仓库
 
 
+## 指定`endpoint` 运行某个镜像
+
+```sh
+ docker run -it --entrypoint /bin/bash example/redis
+```
 
 
 
