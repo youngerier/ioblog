@@ -51,3 +51,15 @@ GRANT EXECUTE TO db_executor
 
 
 
+## 修改表结构 / 添加默认值
+```sql
+update data_terminal set message_center_password = '' where message_center_password is null 
+
+alter table data_terminal
+alter column [message_center_password] varchar(255)  not null  
+
+
+ALTER TABLE data_terminal
+ADD CONSTRAINT default_terminal 
+DEFAULT '' FOR [message_center_password];
+```
