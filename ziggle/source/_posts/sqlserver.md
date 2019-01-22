@@ -39,3 +39,15 @@ END
 CLOSE db_cursor  
 DEALLOCATE db_cursor
 ```
+
+
+## sqlserver 添加执行权限到用户
+
+/* CREATE A NEW ROLE */
+CREATE ROLE db_executor
+
+/* GRANT EXECUTE TO THE ROLE */
+GRANT EXECUTE TO db_executor
+
+
+
