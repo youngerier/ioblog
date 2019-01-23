@@ -135,3 +135,97 @@ select column_name (s)
 from table_name 
 where condition
 ```
+
+
+<!-- more -->
+
+## create user
+首先需要先创建用户, then 添加权限 到指定dbs/tables
+```sql
+create user 'user'@'localhost' identified by 'password' -- connect from localhost
+create user 'user'@'%' identified by 'password'  -- connect from local machine only 
+```
+
+## add privileges
+
+```sql
+grant select ,insert ,update on dabasename.* to 'username'@'localhost' 
+grant all on *.* to 'userName'@'localhost' with grant option
+```
+
+## insert on duplicate key update
+插入唯一key更新
+```sql
+CREATE TABLE iodku (
+ id INT AUTO_INCREMENT NOT NULL,
+ name VARCHAR(99) NOT NULL,
+ misc INT NOT NULL,
+ PRIMARY KEY(id),
+ UNIQUE(name)
+) ENGINE=InnoDB;
+INSERT INTO iodku (name, misc)
+ VALUES
+ ('Leslie', 123),
+ ('Sally', 456);
+ 
+ INSERT INTO iodku (name, misc)
+ VALUES
+ ('Sally', 3333) -- should update
+ ON DUPLICATE KEY UPDATE -- `name` will trigger "duplicate key"
+ id = LAST_INSERT_ID(id),
+ misc = VALUES(misc);
+SELECT LAST_INSERT_ID(); -- picking up existing value
+
+```
+
+## insert ignore existing rows
+插入忽略已经存在的行
+```sql
+insert ignore into `people` (`id`, `name`)values('1','anni'),('2','anna');
+```
+
+
+```sql
+CREATE TABLE iodku (
+ id INT AUTO_INCREMENT NOT NULL,
+ name VARCHAR(99) NOT NULL,
+ misc INT NOT NULL,
+ PRIMARY KEY(id),
+ UNIQUE(name)
+) ENGINE=InnoDB;
+
+INSERT INTO iodku (name, misc)
+ VALUES
+ ('Leslie', 123),
+ ('Sally', 456);
+```
+
+## insert select 
+```sql
+INSERT INTO `tableA` (`field_one`, `field_two`)
+ SELECT `tableB`.`field_one`, `tableB`.`field_two`
+ FROM `tableB`
+ WHERE `tableB`.clmn <> 'someValue'
+ ORDER BY `tableB`.`sorting_clmn`;
+
+```
+
+
+## delete vs Truncate 
+`truncate` 会重置 `AUTO_INCREMENT` index 它比delete from 快在处理大量数据
+
+
+## any_value()
+```sql
+SELECT item.item_id, ANY_VALUE(uses.tag) tag,
+ COUNT(*) number_of_uses
+ FROM item
+ JOIN uses ON item.item_id, uses.item_id
+GROUP BY item.item_id
+
+select username ,any_value(password) from stack GROUP BY username
+```
+
+## sql join 
+{% asset_img sql_join.png sql_join%}
+z
