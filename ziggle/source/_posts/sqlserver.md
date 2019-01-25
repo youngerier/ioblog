@@ -63,3 +63,15 @@ ALTER TABLE data_terminal
 ADD CONSTRAINT default_terminal 
 DEFAULT '' FOR [message_center_password];
 ```
+
+
+##  Deleting all duplicate rows but keeping one
+
+```
+WITH cte AS (
+  SELECT[foo], [bar], 
+     row_number() OVER(PARTITION BY foo, bar ORDER BY baz) AS [rn]
+  FROM TABLE
+)
+DELETE cte WHERE [rn] > 1
+```
