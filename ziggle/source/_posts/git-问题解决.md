@@ -76,3 +76,9 @@ git reset HEAD benchmarks.rb
 ```git
 git checkout --benchmarks.rb
 ```
+## 怎样在一个分支拉去另一个分支的远程代码
+
+```sh
+git fetch <remote> <sourceBranch>:<destinationBranch>
+git fetch origin master:master
+```
