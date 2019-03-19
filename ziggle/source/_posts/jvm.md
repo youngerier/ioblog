@@ -196,4 +196,8 @@ JDK提供的另外一个一站式资源查看，监控，管理工具。支持�
 jinfo  -flag +PrintGCDetails <pid>
 
 jstat -gcutil <pid> 1000
+
+
+.\jstat -gcutil 15508 5s
+
 ```
