@@ -201,3 +201,9 @@ jstat -gcutil <pid> 1000
 .\jstat -gcutil 15508 5s
 
 ```
+
+
+ JVM线程的栈在64位Linux操作系统上的默认大小是多少？
+```
+java -XX:+PrintFlagsFinal -version | grep -i 'stack'
+```
