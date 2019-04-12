@@ -17,3 +17,9 @@ Eden 内存分配
 
 谈到minorGC 相对的fullGC(majorGC) 是指发生在老年代的GC,不论是效率还是速度都比minorGC慢得多
 回收时会发生stop the world 是程序发生停顿
+
+
+```
+-server -Xms24G -Xmx24G -XX:PermSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:ParallelGCThreads=20 -XX:ConcGCThreads=5 -XX:InitiatingHeapOccupancyPercent=70
+
+```
