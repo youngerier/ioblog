@@ -19,6 +19,9 @@ Eden 内存分配
 回收时会发生stop the world 是程序发生停顿
 
 
+### jvm config
+https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2
+
 ```
 -server -Xms24G -Xmx24G -XX:PermSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:ParallelGCThreads=20 -XX:ConcGCThreads=5 -XX:InitiatingHeapOccupancyPercent=70
 
