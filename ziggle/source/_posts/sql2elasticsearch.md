@@ -18,7 +18,7 @@ input {
         jdbc_password => "a"
         schedule => "* * * * *"
         jdbc_default_timezone => "Asia/Shanghai"
-        statement => "SELECT * FROM [backup].[dbo].[data_task] WHERE task_id > :sql_last_value"
+        statement => "SELECT * FROM table WHERE id > :sql_last_value"
         use_column_value => true
         tracking_column => "id"
         type => "task_table"
