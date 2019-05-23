@@ -229,3 +229,11 @@ select username ,any_value(password) from stack GROUP BY username
 ## sql join 
 {% asset_img sql_join.png sql_join%}
 z
+
+## mysql 查看系统变量
+```sql
+show GLOBAL VARIABLES
+show variables
+show local variables
+show session variables
+```
