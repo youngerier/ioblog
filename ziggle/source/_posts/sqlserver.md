@@ -96,3 +96,28 @@ ORDER BY indexstats.avg_fragmentation_in_percent DESC
 ```sql
 ALTER INDEX [idx_name] ON [dbo].[table_name] REBUILD 
 ```
+
+### dbcc
+DBCC(`database console commands`)
+如果表的当前标识值小于列中存储的最大标识值，则使用标识列中的最大值对其进行重置。
+```sql
+DBCC CHECKIDENT('[dbo].[data_module]', NORESEED)
+```
+ 
+重置identity种子
+
+```tsql
+create table #table_temp (item varchar(111))
+insert into #table_temp (item)
+select name from sysobjects  where type = 'u'
+declare @count int 
+select @count= count(1) from #table_temp
+declare @i varchar(111)
+while @count>0
+begin  
+	select top(1)@i= item from #table_temp
+	DBCC CHECKIDENT( @i, NORESEED)
+	delete from #table_temp where item = @i
+end
+
+```
