@@ -115,6 +115,7 @@ select @count= count(1) from #table_temp
 declare @i varchar(111)
 while @count>0
 begin  
+	select @count= count(1) from #table_temp
 	select top(1)@i= item from #table_temp
 	DBCC CHECKIDENT( @i, NORESEED)
 	delete from #table_temp where item = @i
