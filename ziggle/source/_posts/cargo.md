@@ -12,6 +12,4 @@ replace-with = 'ustc'
 [source.ustc]
 registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 
-[target.x86_64-pc-windows-gnu]
-linker = "E:\\MinGw\\bin\\gcc.exe"
 ```

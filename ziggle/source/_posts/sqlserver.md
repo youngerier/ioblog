@@ -117,7 +117,11 @@ while @count>0
 begin  
 	select @count= count(1) from #table_temp
 	select top(1)@i= item from #table_temp
-	DBCC CHECKIDENT( @i, NORESEED)
+	DBCC CHECKIDENT( @i, RESEED) 
+  -- DBCC CHECKIDENT ( table_name, RESEED, new_reseed_value )
+  -- DBCC CHECKIDENT ( table_name, RESEED )
+  -- DBCC CHECKIDENT ( table_name, NORESEED)
+
 	delete from #table_temp where item = @i
 end
 
