@@ -83,3 +83,18 @@ arr.sort(function (x, y) {
 console.log(arr); // [1, 2, 10, 20]
 
 ```
+
+
+html页面注入js
+```js
+(function(d,s,id){
+	  var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)){ return; }
+    js = d.createElement(s); js.id = id;
+    js.onload = function(){
+        console.log(11111)
+    };
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+})(document,'script','facebook-jssdk') 
+```
