@@ -317,3 +317,205 @@ GO
                 $@"Server=d01.xueanquan.cc;Database=LearnOnline;User Id=dev;Password=0F29FF9D-9D91-4420-B2F6-1BFC4B01D6BF;MultipleActiveResultSets=true;";
         }
 ```
+
+
+
+## 如何解决`sqlserver`数据库cpu突然上涨
+
+ - 找到当前数据库正在执行的query
+```sql
+SELECT sqltext.TEXT,
+req.session_id,
+req.status,
+req.command,
+req.cpu_time,
+req.total_elapsed_time
+FROM sys.dm_exec_requests req
+CROSS APPLY sys.dm_exec_sql_text(sql_handle) AS sqltext
+order by  req.cpu_time desc 
+```
+ - 结束正在执行的占用CPU时间长的query
+
+```
+kill [session_id]
+```
+
+
+
+## `sqlserver` 诊断`cpu` 相关sql
+
+
+```sql
+--CPU相关视图  
+SELECT * FROM sys.dm_os_sys_info  
+SELECT * FROM sys.dm_exec_sessions  
+SELECT * FROM sys.sysprocesses  
+SELECT * FROM sys.dm_os_tasks  
+SELECT * FROM sys.dm_os_workers  
+SELECT * FROM sys.dm_os_threads  
+SELECT * FROM sys.dm_os_schedulers  
+SELECT * FROM sys.dm_os_memory_objects  
+SELECT * FROM sys.dm_os_nodes  
+SELECT * FROM sys.dm_os_memory_nodes  
+  
+exec sp_configure 'max degree of parallelism'--系统默认并行度  
+exec sp_configure 'cost threshold for parallelism' --并发阈值  
+exec sp_configure 'max worker threads'--系统最大工作线程数  
+exec sp_configure 'affinity mask' --CPU关联  
+  
+--数据库系统 cpu，线程 数量  
+select max_workers_count,scheduler_count,cpu_count,hyperthread_ratio  
+,(hyperthread_ratio/cpu_count) AS physical_cpu_count  
+,(max_workers_count/scheduler_count) AS workers_per_scheduler_limit  
+from sys.dm_os_sys_info  
+  
+  
+--执行的线程所遇到的所有等待的相关信息  
+SELECT TOP 10 wait_type,waiting_tasks_count,signal_wait_time_ms   
+FROM sys.dm_os_wait_stats ORDER BY signal_wait_time_ms DESC  
+  
+--正在等待某些资源的任务的等待队列的信息  
+SELECT TOP 10 wait_type,wait_duration_ms,session_id,blocking_session_id   
+FROM sys.dm_os_waiting_tasks ORDER BY wait_duration_ms DESC  
+  
+  
+--CPU或调度器当前分配的工作情况  
+SELECT scheduler_id,cpu_id,status,is_idle  
+,current_tasks_count AS 当前任务数           --在等待或运行的任务  
+,runnable_tasks_count AS 等待调度线程数        --已分配任务并且正在可运行队列中  
+,current_workers_count AS 当前线程数     --相关或未分配任何任务的工作线程  
+,active_workers_count AS 活动线程数          --在运行、可运行或挂起  
+,work_queue_count AS 挂起任务数              --等待工作线程执行  
+FROM sys.dm_os_schedulers  
+WHERE scheduler_id < 255  
+  
+  
+--当前线程数  
+select COUNT(*) as 当前线程数 from sys.dm_os_workers  
+  
+--非SQL server create的threads  
+select * from sys.dm_os_threads where started_by_sqlservr=0 --即scheduler_id > 255  
+  
+--有task 等待worker去执行  
+select * from sys.dm_os_tasks where task_state='PENDING'  
+  
+--计数器  
+select * from  sys.dm_os_performance_counters where object_name='SQLServer:SQL Statistics'  
+select * from  sys.dm_os_performance_counters where object_name='SQLServer:Plan Cache'  
+  
+  
+  
+-----------------------------------------------------------------------------  
+-----------------------------------------------------------------------------  
+  
+--1. 实例累积的信号（线程/CPU）等待比例是否严重  
+SELECT CAST(100.0 * SUM(signal_wait_time_ms) / SUM (wait_time_ms) AS NUMERIC(20,2))  AS [%signal (cpu) waits],    
+CAST(100.0 * SUM(wait_time_ms - signal_wait_time_ms) / SUM (wait_time_ms) AS  NUMERIC(20,2)) AS [%resource waits]    
+FROM sys.dm_os_wait_stats WITH (NOLOCK) OPTION (RECOMPILE);   
+  
+  
+--2. SqlServer各等待类型的线程等待信息  
+SELECT TOP 20   
+wait_type,waiting_tasks_count ,wait_time_ms,signal_wait_time_ms   
+,wait_time_ms - signal_wait_time_ms AS resource_wait_time_ms   
+,CONVERT(NUMERIC(14,2),100.0 * wait_time_ms /SUM (wait_time_ms ) OVER( )) AS percent_total_waits   
+,CONVERT(NUMERIC(14,2),100.0 * signal_wait_time_ms /SUM (signal_wait_time_ms) OVER( )) AS percent_total_signal_waits   
+,CONVERT(NUMERIC(14,2),100.0 * ( wait_time_ms - signal_wait_time_ms )/SUM (wait_time_ms ) OVER( )) AS percent_total_resource_waits   
+FROM sys .dm_os_wait_stats  
+WHERE wait_time_ms > 0  
+ORDER BY percent_total_signal_waits DESC  
+  
+  
+--3. 闩锁(latch)等待的信息  
+select top 20 latch_class,waiting_requests_count,wait_time_ms,max_wait_time_ms  
+from sys.dm_os_latch_stats  
+order by wait_time_ms desc  
+  
+  
+--使用最多处理器时间的用户数据库  
+;WITH DB_CPU_Stats AS  (  
+    SELECT DatabaseID, DB_Name(DatabaseID) AS [DatabaseName],    
+    SUM(total_worker_time) AS [CPU_Time_Ms]    
+    FROM sys.dm_exec_query_stats AS qs    
+    CROSS APPLY (SELECT CONVERT(int, value) AS [DatabaseID]    
+    FROM sys.dm_exec_plan_attributes(qs.plan_handle)    
+    WHERE attribute = N'dbid') AS F_DB    
+    GROUP BY DatabaseID)    
+SELECT ROW_NUMBER() OVER(ORDER BY [CPU_Time_Ms] DESC) AS [row_num], DatabaseName  
+, [CPU_Time_Ms], CAST([CPU_Time_Ms] * 1.0   
+    / SUM([CPU_Time_Ms])OVER() * 100.0 AS DECIMAL(5,2)) AS [CPUPercent]    
+FROM DB_CPU_Stats    
+WHERE DatabaseID > 4 -- system databases    
+AND DatabaseID <> 32767 -- ResourceDB    
+ORDER BY row_num OPTION (RECOMPILE);  
+  
+  
+--缓存中最耗CPU的语句  
+select total_cpu_time,total_execution_count,number_of_statements,[text]   
+from (  
+    select top 20    
+    sum(qs.total_worker_time) as total_cpu_time,    
+    sum(qs.execution_count) as total_execution_count,   
+    count(*) as  number_of_statements,    
+    qs.plan_handle    
+    from sys.dm_exec_query_stats qs   
+    group by qs.plan_handle   
+    order by total_cpu_time desc  
+) eqs cross apply sys.dm_exec_sql_text(eqs.plan_handle) as est  
+order by total_cpu_time desc  
+  
+  
+  
+  
+  
+/*【ask 让出scheduler ：worker yielding】  
+1. worker读数据页超过4ms  
+2. 64k结果集排序  
+3. compile或recompile（常有）  
+4. 客户端不能及时取走结果集  
+5. batch 的每个操作完整  
+*/  
+  
+  
+--当前正在执行的语句  
+SELECT   
+der.[session_id],der.[blocking_session_id],  
+sp.lastwaittype,sp.hostname,sp.program_name,sp.loginame,  
+der.[start_time] AS '开始时间',  
+der.[status] AS '状态',  
+der.[command] AS '命令',  
+dest.[text] AS 'sql语句',   
+DB_NAME(der.[database_id]) AS '数据库名',  
+der.[wait_type] AS '等待资源类型',  
+der.[wait_time] AS '等待时间',  
+der.[wait_resource] AS '等待的资源',  
+der.[reads] AS '物理读次数',  
+der.[writes] AS '写次数',  
+der.[logical_reads] AS '逻辑读次数',  
+der.[row_count] AS '返回结果行数'  
+FROM sys.[dm_exec_requests] AS der   
+INNER JOIN master.dbo.sysprocesses AS sp on der.session_id=sp.spid  
+CROSS APPLY  sys.[dm_exec_sql_text](der.[sql_handle]) AS dest   
+WHERE [session_id]>50 AND session_id<>@@SPID AND DB_NAME(der.[database_id])='platform'    
+ORDER BY [cpu_time] DESC  
+  
+  
+  
+--实例级最大的瓶颈  
+WITH Waits AS   
+(   
+    SELECT wait_type , wait_time_ms / 1000. AS wait_time_s , 100.* wait_time_ms / SUM(wait_time_ms) OVER ( ) AS pct ,  
+    ROW_NUMBER() OVER ( ORDER BY wait_time_ms DESC ) AS rn   
+    FROM sys.dm_os_wait_stats   
+    WHERE   
+    wait_type NOT IN ( 'CLR_SEMAPHORE', 'LAZYWRITER_SLEEP', 'RESOURCE_QUEUE', 'SLEEP_TASK', 'SLEEP_SYSTEMTASK', 'SQLTRACE_BUFFER_FLUSH', 'WAITFOR', 'LOGMGR_QUEUE',   
+    'CHECKPOINT_QUEUE', 'REQUEST_FOR_DEADLOCK_SEARCH', 'XE_TIMER_EVENT', 'BROKER_TO_FLUSH', 'BROKER_TASK_STOP', 'CLR_MANUAL_EVENT', 'CLR_AUTO_EVENT',  
+    'DISPATCHER_QUEUE_SEMAPHORE', 'FT_IFTS_SCHEDULER_IDLE_WAIT', 'XE_DISPATCHER_WAIT', 'XE_DISPATCHER_JOIN' )   
+)  
+SELECT W1.wait_type , CAST(W1.wait_time_s AS DECIMAL(12, 2)) AS wait_time_s ,   
+CAST(W1.pct AS DECIMAL(12, 2)) AS pct ,CAST(SUM(W2.pct) AS DECIMAL(12, 2)) AS running_pct   
+FROM Waits AS W1   
+INNER JOIN Waits AS W2 ON W2.rn <= W1.rn   
+GROUP BY W1.rn , W1.wait_type , W1.wait_time_s , W1.pct   
+HAVING SUM(W2.pct) - W1.pct < 95 ; -- percentage threshold
+```

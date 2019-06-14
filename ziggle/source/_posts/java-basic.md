@@ -484,3 +484,107 @@ B print: 3
 ```sh
  javac -encoding utf-8 ./a.java
 ```
+
+# Arthas 
+
+ 原文连接 `https://alibaba.github.io/arthas/arthas-tutorials?language=cn&id=arthas-advanced `
+
+```
+watch com.example.demo.arthas.user.UserController * '{params, throwExp}' -x 2
+```
+- 第一个参数是类名，支持通配
+- 第二个参数是函数名，支持通配
+- 第三个参数是 返回值 ognl 
+- 第四个参数是 命令支持在第4个参数里写条件表达式 `watch com.example.demo.arthas.user.UserController * returnObj 'params[0] > 100'`
+
+``` 
+`loader`
+`clazz`
+`method`
+`target`
+`params`
+`returnObj`
+`throwExp`
+`isBefore`
+`isThrow`
+`isReturn`
+```
+
+###   热更新代码
+下面介绍通过jad/mc/redefine 命令实现动态更新代码的功能。
+
+目前，访问 `http://localhost/user/0` ，会返回`500`异常：
+
+```curl
+curl http://localhost/user/0
+```
+```json
+{"timestamp":1550223186170,"status":500,"error":"Internal Server Error","exception":"java.lang.IllegalArgumentException","message":"id < 1","path":"/user/0"}
+```
+下面通过热更新代码，修改这个逻辑。
+
+jad反编译UserController
+```
+jad --source-only com.example.demo.arthas.user.UserController > /tmp/UserController.java
+```
+jad反编译的结果保存在 /tmp/UserController.java文件里了。
+
+再打开一个Terminal 3，然后用vim来编辑/tmp/UserController.java：
+```
+vim /tmp/UserController.java
+```
+比如当 user id 小于1时，也正常返回，不抛出异常：
+```java
+    @GetMapping(value={"/user/{id}"})
+    public User findUserById(@PathVariable Integer id) {
+        logger.info("id: {}", (Object)id);
+        if (id != null && id < 1) {
+            return new User(id, "name" + id);
+            // throw new IllegalArgumentException("id < 1");
+        }
+        return new User(id.intValue(), "name" + id);
+    }
+```
+
+sc查找加载UserController的ClassLoader
+
+```
+sc -d *UserController | grep classLoaderHash
+```
+```
+$ sc -d *UserController | grep classLoaderHash
+```
+ classLoaderHash   1be6f5c3
+可以发现是 spring boot LaunchedURLClassLoader@1be6f5c3 加载的。
+
+- mc
+
+保存好/tmp/UserController.java之后，使用mc(Memory Compiler)命令来编译，并且通过-c参数指定ClassLoader：
+
+```sh
+mc -c 1be6f5c3 /tmp/UserController.java -d /tmp
+```
+$ mc -c 1be6f5c3 /tmp/UserController.java -d /tmp
+
+Memory compiler output:
+/tmp/com/example/demo/arthas/user/UserController.class
+Affect(row-cnt:1) cost in 346 ms
+
+- redefine
+
+
+再使用redefine命令重新加载新编译好的UserController.class：
+
+redefine /tmp/com/example/demo/arthas/user/UserController.class
+
+$ redefine /tmp/com/example/demo/arthas/user/UserController.class
+redefine success, size: 1
+
+热修改代码结果
+redefine成功之后，再次访问 `curl http://localhost/user/0` ，结果是：
+``` json
+{
+  "id": 0,
+  "name": "name0"
+}
+```
