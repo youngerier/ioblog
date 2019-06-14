@@ -617,3 +617,11 @@ kill {SPID value}
 ```
 https://docs.microsoft.com/zh-cn/sql/relational-databases/system-catalog-views/querying-the-sql-server-system-catalog-faq?view=sql-server-2017#_FAQ6
 ```
+
+
+## 重命名表属性
+
+```sql
+EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN'; 
+-- EXEC sp_rename 'table.column', 'expect column name', 'COLUMN'; 
+```
