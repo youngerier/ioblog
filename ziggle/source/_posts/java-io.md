@@ -90,3 +90,22 @@ private transient Object[] elementData;
 
 ## 网络操作
 
+## nio 
+```java
+它用的是事件机制。它可以用一个线程把Accept，读写操作，请求处理的逻辑全干了。如果什么事都没得做，它也不会死循环，它会将线程休眠起来，直到下一个事件来了再继续干活，这样的一个线程称之为NIO线程。用伪代码表示：
+while true {
+    events = takeEvents(fds)  // 获取事件，如果没有事件，线程就休眠
+    for event in events {
+        if event.isAcceptable {
+            doAccept() // 新链接来了
+        } elif event.isReadable {
+            request = doRead() // 读消息
+            if request.isComplete() {
+                doProcess()
+            }
+        } elif event.isWriteable {
+            doWrite()  // 写消息
+        }
+    }
+}
+```

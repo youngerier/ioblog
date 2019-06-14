@@ -519,3 +519,101 @@ INNER JOIN Waits AS W2 ON W2.rn <= W1.rn
 GROUP BY W1.rn , W1.wait_type , W1.wait_time_s , W1.pct   
 HAVING SUM(W2.pct) - W1.pct < 95 ; -- percentage threshold
 ```
+
+
+### 
+```sql
+---SQL 3:获取数据库服务器CPU核数(适用于所有版本)
+
+CREATE TABLE #TempTable
+  (
+   [Index] VARCHAR(2000) ,
+   [Name] VARCHAR(2000) ,
+   [Internal_Value] VARCHAR(2000) ,
+   [Character_Value] VARCHAR(2000)
+  );
+INSERT INTO #TempTable
+    EXEC xp_msver;
+SELECT Internal_Value AS VirtualCPUCount
+FROM  #TempTable
+WHERE  Name = 'ProcessorCount';
+DROP TABLE #TempTable;
+GO
+```
+
+### 获取数据库服务器磁盘详情
+
+```sql
+
+DECLARE @Result   INT;
+DECLARE @objectInfo   INT;
+DECLARE @DriveInfo   CHAR(1);
+DECLARE @TotalSize   VARCHAR(20);
+DECLARE @OutDrive   INT;
+DECLARE @UnitMB   BIGINT;
+DECLARE @FreeRat   FLOAT;
+SET @UnitMB = 1048576;
+--创建临时表保存服务器磁盘容量信息
+CREATE TABLE #DiskCapacity
+(
+[DiskCD]   CHAR(1) ,
+FreeSize   INT   ,
+TotalSize   INT  
+);
+INSERT #DiskCapacity([DiskCD], FreeSize ) 
+EXEC master.dbo.xp_fixeddrives;
+EXEC sp_configure 'show advanced options', 1
+RECONFIGURE WITH OVERRIDE;
+EXEC sp_configure 'Ole Automation Procedures', 1;
+RECONFIGURE WITH OVERRIDE;
+EXEC @Result = master.sys.sp_OACreate 'scripting.FileSystemObject',@objectInfo OUT;
+DECLARE CR_DiskInfo CURSOR LOCAL FAST_FORWARD
+FOR 
+SELECT DiskCD FROM #DiskCapacity
+ORDER by DiskCD
+OPEN CR_DiskInfo;
+FETCH NEXT FROM CR_DiskInfo INTO @DriveInfo
+WHILE @@FETCH_STATUS=0
+BEGIN
+EXEC @Result = sp_OAMethod @objectInfo,'GetDrive', @OutDrive OUT, @DriveInfo
+EXEC @Result = sp_OAGetProperty @OutDrive,'TotalSize', @TotalSize OUT
+UPDATE #DiskCapacity
+SET TotalSize=@TotalSize/@UnitMB
+WHERE DiskCD=@DriveInfo
+FETCH NEXT FROM CR_DiskInfo INTO @DriveInfo
+END
+CLOSE CR_DiskInfo
+DEALLOCATE CR_DiskInfo;
+EXEC @Result=sp_OADestroy @objectInfo
+EXEC sp_configure 'show advanced options', 1
+RECONFIGURE WITH OVERRIDE;
+EXEC sp_configure 'Ole Automation Procedures', 0;
+RECONFIGURE WITH OVERRIDE;
+EXEC sp_configure 'show advanced options', 0
+RECONFIGURE WITH OVERRIDE;
+SELECT DiskCD   AS [Drive CD]   , 
+  STR(TotalSize*1.0/1024,6,2)   AS [Total Size(GB)] ,
+  STR((TotalSize - FreeSize)*1.0/1024,6,2)   AS [Used Space(GB)] ,
+  STR(FreeSize*1.0/1024,6,2)   AS [Free Space(GB)] ,
+  STR(( TotalSize - FreeSize)*1.0/(TotalSize)* 100.0,6,2) AS [Used Rate(%)]  ,
+  STR(( FreeSize * 1.0/ ( TotalSize ) ) * 100.0,6,2)    AS [Free Rate(%)]
+FROM #DiskCapacity;
+DROP TABLE #DiskCapacity;
+```
+
+### 常用sys_procedure
+
+
+{% asset_img sys_proc.png sys_proc %} 
+
+
+### sp_who (需要 View server status ) 
+-  结束正在指定语句
+sp_who 'active'
+kill {SPID value}
+
+### 常见问题的解法
+
+```
+https://docs.microsoft.com/zh-cn/sql/relational-databases/system-catalog-views/querying-the-sql-server-system-catalog-faq?view=sql-server-2017#_FAQ6
+```
