@@ -237,3 +237,11 @@ show variables
 show local variables
 show session variables
 ```
+
+
+## mysql 管理
+
+- 正在执行的查询
+```sql
+show full processlist 
+```

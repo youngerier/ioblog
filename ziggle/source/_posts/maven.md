@@ -224,7 +224,7 @@ $  mvn archetype:generate -DgroupId=com.zigglle -DartifactId=mymvn
 - system：系统依赖范围。本地依赖，不在maven中央仓库，结合systemPath标签使用
 
 ### 依赖排除
-使用<exclusions>标签下的<exclusion>标签指定GA信息来排除，例如：排除xxx.jar传递依赖过来的yyy.jar
+使用`<exclusions>`标签下的`<exclusion>`标签指定GA信息来排除，例如：排除xxx.jar传递依赖过来的yyy.jar
 
 ```xml
 <dependency>
@@ -291,3 +291,15 @@ mvn archetype:generate
 mvn archetype:gennerate -Dgroupid=公司网址反写+项目名 -DartifactId=项目名-模块名 -Dversion=版本号 -Dpackage=代码所在的包
 ```
 
+### 设置maven 平台编码
+
+- win
+```cmd
+set "MAVEN_OPTS=-Duser.language=en -Dfile.encoding=UTF-8"
+```
+
+- linux
+
+```sh
+export MAVEN_OPTS='-Duser.language=en -Dfile.encoding=UTF-8'
+```
