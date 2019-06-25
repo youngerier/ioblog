@@ -389,3 +389,19 @@ sudo service ssh --full-restart
 
 
 rpm -ivh jdk-10.interim.update.patch_linux-x64_bin.rpm
+
+
+###  用户、权限-相关命令
+- 修改普通用户 youmeek 的权限跟 root 权限一样 
+  - 常用方法（原理是把该用户加到可以直接使用 sudo 的一个权限状态而已）：
+
+编辑配置文件：vim /etc/sudoers
+找到 98 行（预估），有一个：root ALL=(ALL) ALL，在这一行下面再增加一行，效果如下：
+```conf
+ root    ALL=(ALL)   ALL
+ youmeek    ALL=(ALL)   ALL
+```
+ - 另一种方法：
+
+编辑系统用户的配置文件：vim /etc/passwd，找到 root 和 youmeek 各自开头的那一行，比如 root 是：root:x:0:0:root:/root:/bin/zsh，这个代表的含义为：用户名:密码:UserId:GroupId:描述:家目录:登录使用的 shell
+通过这两行对比，我们可以直接修改 youmeek 所在行的 UserId 值 和 GroupId 值，都改为 0。

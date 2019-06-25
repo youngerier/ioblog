@@ -90,4 +90,19 @@ find . -ctime -20
 - 查找前目录中文件属主具有读、写权限，并且文件所属组的用户和其他用户具有读权限的文件：
 ```
  find . -type f -perm 644 -exec ls -l {} \;
+ find . -name *lin*，其中 . 代表在当前目录找，-name 表示匹配文件名 / 文件夹名，*lin* 用通配符搜索含有lin的文件或是文件夹
+ find . -iname *lin*，其中 . 代表在当前目录找，-iname 表示匹配文件名 / 文件夹名（忽略大小写差异），*lin* 用通配符搜索含有lin的文件或是文件夹
+ find / -name *.conf，其中 / 代表根目录查找，*.conf代表搜索后缀会.conf的文件
+ find /opt -name .oh-my-zsh，其中 /opt 代表目录名，.oh-my-zsh 代表搜索的是隐藏文件 / 文件夹名字为 oh-my-zsh 的
+ find /opt -type f -iname .oh-my-zsh，其中 /opt 代表目录名，-type f 代表只找文件，.oh-my-zsh 代表搜索的是隐藏文件名字为 oh-my-zsh 的
+ find /opt -type d -iname .oh-my-zsh，其中 /opt 代表目录名，-type d 代表只找目录，.oh-my-zsh 代表搜索的是隐藏文件夹名字为 oh-my-zsh 的
+ find . -name "lin*" -exec ls -l {} \;，当前目录搜索lin开头的文件，然后用其搜索后的结果集，再执行ls -l的命令（这个命令可变，其他命令也可以），其中 -exec 和 {} ; 都是固定格式
+ find /opt -type f -size +800M -print0 | xargs -0 du -h | sort -nr，找出 /opt 目录下大于 800 M 的文件
+ find / -name "*tower*" -exec rm {} \;，找到文件并删除
+ find / -name "*tower*" -exec mv {} /opt \;，找到文件并移到 opt 目录
+ find . -name "*" |xargs grep "youmeek"，递归查找当前文件夹下所有文件内容中包含 youmeek 的文件
+ find . -size 0 | xargs rm -f &，删除当前目录下文件大小为0的文件
+ du -hm --max-depth=2 | sort -nr | head -12，找出系统中占用容量最大的前 12 个目录
 ```
+
+
