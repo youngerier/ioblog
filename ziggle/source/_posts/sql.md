@@ -625,3 +625,12 @@ https://docs.microsoft.com/zh-cn/sql/relational-databases/system-catalog-views/q
 EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN'; 
 -- EXEC sp_rename 'table.column', 'expect column name', 'COLUMN'; 
 ```
+
+
+
+## grant 存储过程权限
+
+```sql
+GRANT EXECUTE ON dbo.procname TO username;
+select 'GRANT EXECUTE ON '+name+' TO wangping;' from sys.procedures
+```

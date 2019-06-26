@@ -26,3 +26,20 @@ https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2
 -server -Xms24G -Xmx24G -XX:PermSize=512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:ParallelGCThreads=20 -XX:ConcGCThreads=5 -XX:InitiatingHeapOccupancyPercent=70
 
 ```
+
+
+### javac
+
+ - 词法分析
+ - 语法分析
+ - 语义分析
+ - 字节码生成器
+
+ 从源代码找出规范化的token流
+ 判断是否复合Java语言规范 形成抽象语法树
+ 将复杂语法转换为简单语法 语法糖处理
+ 生成字节码
+
+
+ 
+ 
