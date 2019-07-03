@@ -82,3 +82,10 @@ git checkout --benchmarks.rb
 git fetch <remote> <sourceBranch>:<destinationBranch>
 git fetch origin master:master
 ```
+
+
+
+## 找到一个被删除的文件并恢复
+
+- Use git log --diff-filter=D --summary to get all the commits which have deleted files and the files deleted;
+- Use git checkout $commit~1 path/to/file.ext to restore the deleted file.
