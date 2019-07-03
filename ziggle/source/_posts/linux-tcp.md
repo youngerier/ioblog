@@ -35,6 +35,7 @@ echo 1 > /proc/sys/net/ipv4/tcp_tw_recycle
 
 {% asset_img tcp-config.png tcp-config.png%}
 {% asset_img tcp-config1.png tcp-config1.png%}
+{% asset_img tcp_state.png tcp_state.png%}
 
 
 ### 以上设置都是临时性的
