@@ -104,9 +104,9 @@ DBCC(`database console commands`)
 DBCC CHECKIDENT('[dbo].[data_module]', NORESEED)
 ```
  
-重置identity种子
+### 重置identity种子
 
-```tsql
+```sql
 create table #table_temp (item varchar(111))
 insert into #table_temp (item)
 select name from sysobjects  where type = 'u'
@@ -125,4 +125,16 @@ begin
 	delete from #table_temp where item = @i
 end
 
+```
+
+### 统计数据库表行数
+
+```sql
+SELECT t.name, s.row_count from sys.tables t
+JOIN sys.dm_db_partition_stats s
+ON t.object_id = s.object_id
+AND t.type_desc = 'USER_TABLE'
+AND t.name not like '%dss%'
+AND s.index_id IN (0,1)
+order by row_count desc 
 ```
