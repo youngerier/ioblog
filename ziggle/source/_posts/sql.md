@@ -344,9 +344,9 @@ kill [session_id]
 
 ## `sqlserver` 诊断`cpu` 相关sql
 
-
+####CPU相关视图  
 ```sql
---CPU相关视图  
+--
 SELECT * FROM sys.dm_os_sys_info  
 SELECT * FROM sys.dm_exec_sessions  
 SELECT * FROM sys.sysprocesses  
@@ -362,24 +362,29 @@ exec sp_configure 'max degree of parallelism'--系统默认并行度
 exec sp_configure 'cost threshold for parallelism' --并发阈值  
 exec sp_configure 'max worker threads'--系统最大工作线程数  
 exec sp_configure 'affinity mask' --CPU关联  
-  
---数据库系统 cpu，线程 数量  
+```
+
+#### 数据库系统 cpu，线程 数量  
+```sql
 select max_workers_count,scheduler_count,cpu_count,hyperthread_ratio  
 ,(hyperthread_ratio/cpu_count) AS physical_cpu_count  
 ,(max_workers_count/scheduler_count) AS workers_per_scheduler_limit  
 from sys.dm_os_sys_info  
   
-  
---执行的线程所遇到的所有等待的相关信息  
+```
+#### 执行的线程所遇到的所有等待的相关信息  
+```sql
 SELECT TOP 10 wait_type,waiting_tasks_count,signal_wait_time_ms   
 FROM sys.dm_os_wait_stats ORDER BY signal_wait_time_ms DESC  
-  
---正在等待某些资源的任务的等待队列的信息  
+```  
+#### 正在等待某些资源的任务的等待队列的信息  
+```sql
 SELECT TOP 10 wait_type,wait_duration_ms,session_id,blocking_session_id   
 FROM sys.dm_os_waiting_tasks ORDER BY wait_duration_ms DESC  
+``` 
   
-  
---CPU或调度器当前分配的工作情况  
+#### CPU或调度器当前分配的工作情况  
+```sql
 SELECT scheduler_id,cpu_id,status,is_idle  
 ,current_tasks_count AS 当前任务数           --在等待或运行的任务  
 ,runnable_tasks_count AS 等待调度线程数        --已分配任务并且正在可运行队列中  
@@ -388,9 +393,10 @@ SELECT scheduler_id,cpu_id,status,is_idle
 ,work_queue_count AS 挂起任务数              --等待工作线程执行  
 FROM sys.dm_os_schedulers  
 WHERE scheduler_id < 255  
+```
   
-  
---当前线程数  
+#### 当前线程数  
+```sql
 select COUNT(*) as 当前线程数 from sys.dm_os_workers  
   
 --非SQL server create的threads  
@@ -402,11 +408,6 @@ select * from sys.dm_os_tasks where task_state='PENDING'
 --计数器  
 select * from  sys.dm_os_performance_counters where object_name='SQLServer:SQL Statistics'  
 select * from  sys.dm_os_performance_counters where object_name='SQLServer:Plan Cache'  
-  
-  
-  
------------------------------------------------------------------------------  
------------------------------------------------------------------------------  
   
 --1. 实例累积的信号（线程/CPU）等待比例是否严重  
 SELECT CAST(100.0 * SUM(signal_wait_time_ms) / SUM (wait_time_ms) AS NUMERIC(20,2))  AS [%signal (cpu) waits],    
@@ -470,17 +471,6 @@ from (
 order by total_cpu_time desc  
   
 ```
-  
-  
-  
-/*【ask 让出scheduler ：worker yielding】  
-1. worker读数据页超过4ms  
-2. 64k结果集排序  
-3. compile或recompile（常有）  
-4. 客户端不能及时取走结果集  
-5. batch 的每个操作完整  
-*/  
-  
   
 ### 当前正在执行的语句  
 ```sql
