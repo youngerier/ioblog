@@ -24,151 +24,7 @@ tags:
     Id
   ) a0
   UNION ALL
-  SELECT
-    *
-  FROM
-    (
-    SELECT
-      TOP 15 *
-    FROM
-      zbjm_comment WITH (nolock)
-    WHERE
-      AuditStatus = 1
-    AND IsDeleted = 0
-    AND path LIKE '1:0000000000000000059-0000000000000087470%'
-    ORDER BY
-      Id
-    ) a1
-  UNION ALL
-    SELECT
-    *
-    FROM
-    (
-      SELECT
-      TOP 15 *
-      FROM
-      zbjm_comment WITH (nolock)
-      WHERE
-      AuditStatus = 1
-      AND IsDeleted = 0
-      AND path LIKE '1:0000000000000000059-0000000000000040167%'
-      ORDER BY
-      Id
-    ) a2
-    UNION ALL
-    SELECT
-      *
-    FROM
-      (
-      SELECT
-        TOP 15 *
-      FROM
-        zbjm_comment WITH (nolock)
-      WHERE
-        AuditStatus = 1
-      AND IsDeleted = 0
-      AND path LIKE '1:0000000000000000059-0000000000000004254%'
-      ORDER BY
-        Id
-      ) a3
-    UNION ALL
-      SELECT
-      *
-      FROM
-      (
-        SELECT
-        TOP 15 *
-        FROM
-        zbjm_comment WITH (nolock)
-        WHERE
-        AuditStatus = 1
-        AND IsDeleted = 0
-        AND path LIKE '1:0000000000000000059-0000000000000003760%'
-        ORDER BY
-        Id
-      ) a4
-      UNION ALL
-      SELECT
-        *
-      FROM
-        (
-        SELECT
-          TOP 15 *
-        FROM
-          zbjm_comment WITH (nolock)
-        WHERE
-          AuditStatus = 1
-        AND IsDeleted = 0
-        AND path LIKE '1:0000000000000000059-0000000000000003462%'
-        ORDER BY
-          Id
-        ) a5
-      UNION ALL
-        SELECT
-        *
-        FROM
-        (
-          SELECT
-          TOP 15 *
-          FROM
-          zbjm_comment WITH (nolock)
-          WHERE
-          AuditStatus = 1
-          AND IsDeleted = 0
-          AND path LIKE '1:0000000000000000059-0000000000000003452%'
-          ORDER BY
-          Id
-        ) a6
-        UNION ALL
-        SELECT
-          *
-        FROM
-          (
-          SELECT
-            TOP 15 *
-          FROM
-            zbjm_comment WITH (nolock)
-          WHERE
-            AuditStatus = 1
-          AND IsDeleted = 0
-          AND path LIKE '1:0000000000000000059-0000000000000003451%'
-          ORDER BY
-            Id
-          ) a7
-        UNION ALL
-          SELECT
-          *
-          FROM
-          (
-            SELECT
-            TOP 15 *
-            FROM
-            zbjm_comment WITH (nolock)
-            WHERE
-            AuditStatus = 1
-            AND IsDeleted = 0
-            AND path LIKE '1:0000000000000000059-0000000000000003385%'
-            ORDER BY
-            Id
-          ) a8
-          UNION ALL
-          SELECT
-            *
-          FROM
-            (
-            SELECT
-              TOP 15 *
-            FROM
-              zbjm_comment WITH (nolock)
-            WHERE
-              AuditStatus = 1
-            AND IsDeleted = 0
-            AND path LIKE '1:0000000000000000059-0000000000000003377%'
-            ORDER BY
-              Id
-            ) a9
-          UNION ALL
-            SELECT
+   SELECT
             *
             FROM
             (
@@ -190,11 +46,7 @@ tags:
     ('1:0000000000000000059-0000000000000087470%'),
     ('1:0000000000000000059-0000000000000040167%'),
     ('1:0000000000000000059-0000000000000004254%'),
-    ('1:0000000000000000059-0000000000000003760%'),
-    ('1:0000000000000000059-0000000000000003462%'),
-    ('1:0000000000000000059-0000000000000003452%'),
-    ('1:0000000000000000059-0000000000000003451%'),
-    ('1:0000000000000000059-0000000000000003385%'),
+   
     ('1:0000000000000000059-0000000000000003377%'),
     ('1:0000000000000000059-0000000000000003369%') 
       SELECT
@@ -262,6 +114,7 @@ tags:
   WHERE
     t2.id IS NULL
 ```
+<!-- more -->
 
 ###  查询父表数据并 统计子表中的数量
 ```sql

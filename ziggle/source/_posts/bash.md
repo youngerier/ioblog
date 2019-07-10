@@ -198,6 +198,7 @@ case $1 in
 esac
 
 ```
+<!-- more -->
 
 ### loop 语句
 

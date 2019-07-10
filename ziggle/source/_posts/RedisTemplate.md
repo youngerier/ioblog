@@ -101,6 +101,7 @@ public class RedisMessageSubscriber implements MessageListener {
 }
 ```
 
+<!-- more -->
 
 
 > How to solve this problem 

@@ -117,6 +117,7 @@ public class SysUserDetail implements UserDetails {
  ...... ignore getter setter hashcode.
 
 ```
+<!-- more -->
 
 - 基于`jwt`的帮助类
 

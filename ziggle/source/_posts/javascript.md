@@ -98,3 +98,5 @@ html页面注入js
     fjs.parentNode.insertBefore(js, fjs);
 })(document,'script','facebook-jssdk') 
 ```
+
+<!-- more -->

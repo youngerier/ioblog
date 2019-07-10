@@ -91,6 +91,7 @@ public class AnnotateFilter implements Filter {
 而通常的@Order注解只能用于定义Bean的加载顺序，却真正无法控制Filter排序。
 这是一个已知问题，[参考这里](https://github.com/spring-projects/spring-boot/issues/8276?spm=a2c4e.11153940.blogcont626131.9.ab192f15q5eCfw)
 
+<!-- more -->
 
 ## HanlderInterceptor
 

@@ -125,6 +125,8 @@ Router.addResMethod = function(name, fn) {
   data.resMethods[name] = fn
 }
 
+<!-- more -->
+
 /**
  * browser
  * 需要注意的是调用history.pushState()或history.replaceState()不会触发popstate事件，

@@ -4,7 +4,7 @@ date: 2019-06-26 16:38:22
 tags:
 ---
 
-### docker ?? nuxus
+### docker 安装 nuxus
 
 ```
 $ mkdir -p /lib/nexus/nexus-data && chown -R 200 /lib/nexus/nexus-data

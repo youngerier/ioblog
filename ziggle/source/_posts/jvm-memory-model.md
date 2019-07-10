@@ -4,7 +4,12 @@ date: 2018-12-12 11:00:50
 tags:
 ---
 
-Eden 内存分配
+### `JVM` 内存模型
+
+{% asset_img jvm-memory-model.png jvm-memory-model%}
+
+
+### Eden 内存分配
 
 为了方便垃圾回收 ,jvm 将对内存分为新生代,老生带
 新生代分为 Eden ,from Survivor, to Survivor 区
@@ -93,3 +98,5 @@ https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2
 
  - 对象优先在`Eden`分配 当`Eden`区没有足够空间进行分配时，虚拟 机将发起一次`Minor GC`
  - 
+
+

@@ -130,6 +130,7 @@ userdel -r ziggle
 ```
 groupdel group1
 ```
+<!-- more -->
 
 ## 与用户账号有关的系统文件
 

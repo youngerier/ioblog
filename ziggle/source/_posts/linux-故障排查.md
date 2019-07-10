@@ -104,7 +104,10 @@ sysctl -q vm.swappiness
 sysctl vm.swappiness=10
 建议关注非0 swap的所有问题，即使你用了ssd。swap用的多，通常伴随着I/O升高，服务卡顿。swap一点都不好玩，不信搜一下《swap罪与罚》这篇文章看下，千万不要更晕哦。
 
-### jvm
+<!-- more -->
+
+
+### JVM
 - 查看系统级别的故障和问题
 dmesg
 - 统计实例最多的类前十位 

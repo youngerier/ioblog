@@ -199,6 +199,8 @@ ziggle@ziggle MINGW64 /e/code/mvnjava
 $  mvn archetype:generate -DgroupId=com.zigglle -DartifactId=mymvn
 ```
 
+<!-- more -->
+
 
 ### 在应用程序用使用多个存储库
 ```xml

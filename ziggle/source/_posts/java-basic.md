@@ -43,8 +43,6 @@ public class ReentrantLockTest {
 }
 ```
 
-<!-- more -->
-
 ## java 静态代理
 
 ```java
@@ -267,8 +265,6 @@ public class ReentrantLockTest {
 }
 ```
 
-<!-- more -->
-
 ### java 静态代理
 
 ```java
@@ -346,8 +342,6 @@ class ProxyHandler implements InvocationHandler {
     }   
 }
 ```
-<!-- more -->
-
 ### Stream(Java 8)
 
 ```java
