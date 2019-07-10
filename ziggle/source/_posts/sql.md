@@ -431,8 +431,11 @@ select top 20 latch_class,waiting_requests_count,wait_time_ms,max_wait_time_ms
 from sys.dm_os_latch_stats  
 order by wait_time_ms desc  
   
-  
---使用最多处理器时间的用户数据库  
+```
+
+### 使用最多处理器时间的用户数据库  
+
+``` sql
 ;WITH DB_CPU_Stats AS  (  
     SELECT DatabaseID, DB_Name(DatabaseID) AS [DatabaseName],    
     SUM(total_worker_time) AS [CPU_Time_Ms]    
@@ -449,8 +452,10 @@ WHERE DatabaseID > 4 -- system databases
 AND DatabaseID <> 32767 -- ResourceDB    
 ORDER BY row_num OPTION (RECOMPILE);  
   
-  
---缓存中最耗CPU的语句  
+```
+
+### 缓存中最耗CPU的语句  
+```sql
 select total_cpu_time,total_execution_count,number_of_statements,[text]   
 from (  
     select top 20    
@@ -464,7 +469,7 @@ from (
 ) eqs cross apply sys.dm_exec_sql_text(eqs.plan_handle) as est  
 order by total_cpu_time desc  
   
-  
+```
   
   
   
@@ -477,7 +482,8 @@ order by total_cpu_time desc
 */  
   
   
---当前正在执行的语句  
+### 当前正在执行的语句  
+```sql
 SELECT   
 der.[session_id],der.[blocking_session_id],  
 sp.lastwaittype,sp.hostname,sp.program_name,sp.loginame,  
@@ -521,7 +527,7 @@ HAVING SUM(W2.pct) - W1.pct < 95 ; -- percentage threshold
 ```
 
 
-### 
+###  获取数据库服务器CPU核数
 ```sql
 ---SQL 3:获取数据库服务器CPU核数(适用于所有版本)
 
