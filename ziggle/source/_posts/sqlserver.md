@@ -138,3 +138,30 @@ AND t.name not like '%dss%'
 AND s.index_id IN (0,1)
 order by row_count desc 
 ```
+
+
+
+###  批量插入数据时 获取新主键列表
+
+```sql
+CREATE TABLE MyTable
+(
+    MyPK INT IDENTITY(1,1) NOT NULL,
+    MyColumn NVARCHAR(1000)
+)
+
+DECLARE @myNewPKTable TABLE (myNewPK INT,myColumn varchar(1111))
+
+INSERT INTO 
+    MyTable
+(
+    MyColumn
+)
+OUTPUT INSERTED.MyPK ,inserted.MyColumn INTO @myNewPKTable(myNewPK ,myColumn)
+SELECT
+    sysobjects.name
+FROM
+    sysobjects
+
+SELECT * FROM @myNewPKTable
+```
