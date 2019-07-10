@@ -165,3 +165,22 @@ FROM
 
 SELECT * FROM @myNewPKTable
 ```
+
+
+### 批量插入数据 并获取插入后表数据
+
+```sql
+begin transaction;
+	-- 新增联系人
+	insert wx_contact(
+				big_head ,
+				*
+			)  output inserted.wx_contact_id, inserted.wx_username 
+			into @TVP(contactId ,wxusername)
+	select t.bighead,*
+	 from 
+	@TVP t 
+	left join wx_contact c on t.wxusername =c.wx_username
+	where c.wx_username is null and t.userState = 0
+commit;
+```
