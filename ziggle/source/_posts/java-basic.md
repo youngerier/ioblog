@@ -246,7 +246,7 @@ factory = (Exampleinterface)c.newInstence();
 - new: 强类型,相对高效,能调用任何public构造。
 - Class.forName(“”)返回的是类。
 - Class.forName(“”).newInstance()返回的是object 。
-## ReentrantLock
+### ReentrantLock
 ReentrantLock是一个基于AQS的可重入的互斥锁，
 公平锁将确保等待时间最长的线程优先获取锁，将会使整体的吞吐量下降
 非公平锁将不能确定哪一个线程将获取锁，可能会导致某些线程饥饿。
@@ -269,7 +269,7 @@ public class ReentrantLockTest {
 
 <!-- more -->
 
-## java 静态代理
+### java 静态代理
 
 ```java
 import java.lang.reflect.InvocationHandler;
@@ -450,7 +450,7 @@ B print: 3
 
 
 
-## 为什么hashmap中数组的长的是16 或2的n次幂
+### 为什么hashmap中数组的长的是16 或2的n次幂
 
 
 我们假设HaspMap的初始长度为10，重复前面的运算步骤：
@@ -468,7 +468,7 @@ B print: 3
 而长度是16或者其他2的次幂，Length - 1的值的所有二进制位全为1（如15的二进制是1111，31的二进制为11111），这种情况下，index的结果就等同于HashCode后几位的值。只要输入的HashCode本身分布均匀，Hash算法的结果就是均匀的。这也是HashMap设计的玄妙之处。
 
 
-## HashMap的死锁
+### HashMap的死锁
 我们知道HashMap是非线程安全的，那么原因是什么呢？
 
 由于HashMap的容量是有限的，如果HashMap中的数组的容量很小，假如只有2个，那么如果要放进10个keys的话，碰撞就会非常频繁，此时一个O(1)的查找算法，就变成了链表遍历，性能变成了O(n)，这是Hash表的缺陷。
@@ -485,7 +485,7 @@ B print: 3
  javac -encoding utf-8 ./a.java
 ```
 
-# Arthas 
+### Arthas 
 
  原文连接 `https://alibaba.github.io/arthas/arthas-tutorials?language=cn&id=arthas-advanced `
 
@@ -510,7 +510,7 @@ watch com.example.demo.arthas.user.UserController * '{params, throwExp}' -x 2
 `isReturn`
 ```
 
-###   热更新代码
+####   热更新代码
 下面介绍通过jad/mc/redefine 命令实现动态更新代码的功能。
 
 目前，访问 `http://localhost/user/0` ，会返回`500`异常：
