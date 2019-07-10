@@ -6,7 +6,7 @@ tags:
     - bash
 ---
 
-# Nginx settings
+## Nginx settings
 
 ```yml
 user www-data;
@@ -98,7 +98,7 @@ mail {
 
 
 ```
-# 所有的动态页面交给tomcat 等处理
+## 所有的动态页面交给tomcat 等处理
 ```nil
 
 location ~ .(jsp|jspx|do)?$ {  
@@ -108,7 +108,7 @@ location ~ .(jsp|jspx|do)?$ {
     proxy_pass http://127.0.0.1:8080;  
 }  
 ```
-# 所有静态文件由nginx直接读取
+## 所有静态文件由nginx直接读取
 ```nil
 location ~ .*.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt  
                 |pdf|xls|mp3|wma)$ {   
@@ -119,7 +119,7 @@ location ~ .*.(js|css)?$ {
 }  
 ```
 
-# nginx 中upstream轮询机制
+## nginx 中upstream轮询机制
 - 轮询 后端服务器down掉,可以自动删除
 ```
 upstream bakend {  
@@ -153,14 +153,14 @@ upstream resinserver{
     fair;  
 }  
 ```
-# 定义错误页面
+## 定义错误页面
 ```
 error_page   500 502 503 504 /50x.html;  
 location = /50x.html {  
 } 
 ```
 
-# shadowsocks进程检测 
+## shadowsocks进程检测 
 
 - 1  添加cron 任务
 

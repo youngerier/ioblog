@@ -131,7 +131,7 @@ userdel -r ziggle
 groupdel group1
 ```
 
-### 与用户账号有关的系统文件
+## 与用户账号有关的系统文件
 
 ```
 [root@frpserver ~]# cat /etc/passwd

@@ -108,7 +108,7 @@ spring:
 <!-- more -->
 
 
-consul 单节点配置
+- consul 单节点配置
 
 ```json
 [root@java-web-ci data]# cat /etc/consul/conf/consul.json 
@@ -132,7 +132,7 @@ consul 单节点配置
 ```
 
 
-acl.json
+- acl.json
 ```json
 [root@java-web-ci data]# cat /etc/consul/conf/acl.json 
 {
@@ -143,7 +143,7 @@ acl.json
   }
 ```
 
-consul systemd
+- consul systemd
 
 ```conf
 [root@java-web-ci data]# cat /etc/systemd/system/consul.service 

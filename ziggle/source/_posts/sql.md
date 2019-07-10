@@ -615,7 +615,7 @@ https://docs.microsoft.com/zh-cn/sql/relational-databases/system-catalog-views/q
 ```
 
 
-## 重命名表属性
+### 重命名表属性
 
 ```sql
 EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN'; 
@@ -624,7 +624,7 @@ EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN';
 
 
 
-## grant 存储过程权限
+### grant 存储过程权限
 
 ```sql
 GRANT EXECUTE ON dbo.procname TO username;

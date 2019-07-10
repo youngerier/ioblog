@@ -4,6 +4,8 @@ date: 2018-03-16 16:49:29
 tags:
 ---
 
+
+### 连接优化
 ```sql
   --before
   SELECT
@@ -221,7 +223,8 @@ tags:
       
   ```
 
-  > 去重 insert 
+### 插入时去重 insert 
+
   ```sql
   INSERT INTO dbo.Learn_CouponSendJob (
     UserId,
@@ -260,7 +263,7 @@ tags:
     t2.id IS NULL
 ```
 
-> 查询父表数据并 统计子表中的数量
+###  查询父表数据并 统计子表中的数量
 ```sql
   SELECT
     ROW_NUMBER () OVER (ORDER BY MAX(eg.addtime)) RowNum,
@@ -283,7 +286,7 @@ tags:
 ```
 
 
-> 对版本软件版本管理
+### 对版本软件版本管理
 当前版本和最新之间的版本是否包含强制更新
 ```sql
   DECLARE @Need INT

@@ -41,7 +41,7 @@ DEALLOCATE db_cursor
 ```
 
 
-## sqlserver 添加执行权限到用户
+### sqlserver 添加执行权限到用户
 
 /* CREATE A NEW ROLE */
 CREATE ROLE db_executor
@@ -51,7 +51,7 @@ GRANT EXECUTE TO db_executor
 
 
 
-## 修改表结构 / 添加默认值
+### 修改表结构 / 添加默认值
 ```sql
 update data_terminal set message_center_password = '' where message_center_password is null 
 
@@ -65,7 +65,7 @@ DEFAULT '' FOR [message_center_password];
 ```
 
 
-##  Deleting all duplicate rows but keeping one
+###  Deleting all duplicate rows but keeping one
 
 ```
 WITH cte AS (
@@ -77,7 +77,7 @@ DELETE cte WHERE [rn] > 1
 ```
 
 
-## 查看sqlserver 索引碎片情况
+### 查看sqlserver 索引碎片情况
 
 ```sql
 SELECT OBJECT_NAME(ind.OBJECT_ID) AS TableName, 

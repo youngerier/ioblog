@@ -4,7 +4,7 @@ date: 2018-07-10 14:32:01
 tags:
 ---
 
-# wsl host config
+## wsl host config
 
 > vim /etc/hosts
 
