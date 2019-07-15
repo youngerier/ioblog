@@ -187,3 +187,36 @@ begin transaction;
 	where c.wx_username is null and t.userState = 0
 commit;
 ```
+
+
+###  sqlserver 监控视图
+
+- dm_db_*：数据库和数据库对象
+- dm_exec_*：执行用户代码和关联的连接
+- dm_os_*：内存、锁定和时间安排
+- dm_tran_*：事务和隔离
+- dm_io_*：网络和磁盘的输入/输出
+
+显示缓冲计划所占用的cpu使用率
+
+```sql
+SELECT 
+      total_cpu_time, 
+      total_execution_count,
+      number_of_statements,
+      s2.text
+FROM 
+      (SELECT TOP 50 
+            SUM(qs.total_worker_time) AS total_cpu_time, 
+            SUM(qs.execution_count) AS total_execution_count,
+            COUNT(*) AS  number_of_statements, 
+            qs.sql_handle --,
+            --MIN(statement_start_offset) AS statement_start_offset, 
+            --MAX(statement_end_offset) AS statement_end_offset
+      FROM 
+            sys.dm_exec_query_stats AS qs
+      GROUP BY qs.sql_handle
+      ORDER BY SUM(qs.total_worker_time) DESC) AS stats
+      CROSS APPLY sys.dm_exec_sql_text(stats.sql_handle) AS s2
+	  order by total_execution_count desc 
+```
