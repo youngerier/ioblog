@@ -220,3 +220,22 @@ FROM
       CROSS APPLY sys.dm_exec_sql_text(stats.sql_handle) AS s2
 	  order by total_execution_count desc 
 ```
+
+
+### sql join/where 执行顺序
+
+`https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-transact-sql?view=sql-server-2017`
+
+```
+1. FROM
+2. ON
+3. JOIN
+4. WHERE
+5. GROUP BY
+6. WITH CUBE or WITH ROLLUP
+7. HAVING
+8. SELECT
+9. DISTINCT
+10. ORDER BY
+11. TOP
+```
