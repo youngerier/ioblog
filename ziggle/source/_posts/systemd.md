@@ -48,3 +48,19 @@ WantedBy=multi-user.target
     - `SyslogIdentifier` : syslog 前缀
     - `SuccessExitStatus` : JVM 成功推出码 `143` 
     - `WorkingDirectory` and `User` 不能用环境变量
+
+### systemd fd limit 
+
+系统 
+- ulimit -n num
+
+systemd
+- fd 默认4096
+
+*.server
+```conf
+[Service]
+LimitCORE=infinity
+LimitNOFILE=100000
+LimitNPROC=100000
+```
