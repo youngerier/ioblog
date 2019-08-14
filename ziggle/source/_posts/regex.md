@@ -4,23 +4,6 @@ date: 2019-08-07 23:47:44
 tags:
 ---
 
-
-<p align="center">
-    <br/>
-    <a href="https://github.com/ziishaned/learn-regex">
-        <img src="https://i.imgur.com/bYwl7Vf.png" alt="Learn Regex">
-    </a>
-    <br /><br />
-    <p>
-        <a href="https://twitter.com/home?status=Learn%20regex%20the%20easy%20way%20by%20%40ziishaned%20http%3A//github.com/ziishaned/learn-regex">
-            <img src="https://img.shields.io/badge/twitter-tweet-blue.svg?style=flat-square"/>
-        </a>
-        <a href="https://twitter.com/ziishaned">
-            <img src="https://img.shields.io/badge/feedback-@ziishaned-blue.svg?style=flat-square" />
-        </a>
-    </p>
-</p>
-
 ## Translations:
 
 * [English](../README.md)
@@ -48,10 +31,6 @@ tags:
 想象你正在写一个应用, 然后你想设定一个用户命名的规则, 让用户名包含字符,数字,下划线和连字符,以及限制字符的个数,好让名字看起来没那么丑.
 我们使用以下正则表达式来验证一个用户名:
 
-<br/><br/>
-<p align="center">
-  <img src="../img/regexp-cn.png" alt="Regular expression">
-</p>
 
 以上的正则表达式可以接受 `john_doe`, `jo-hn_doe`, `john12_as`.
 但不匹配`Jo`, 因为它包含了大写的字母而且太短了.
