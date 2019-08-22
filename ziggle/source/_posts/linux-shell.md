@@ -15,7 +15,7 @@ IFS环境变量定义了bash shell用作字段分隔符的一系列字符。默�
 - 换行符
 
 
-```
+```cfg
 IFS.OLD=$IFS 
  IFS=$'\n' 
  <在代码中使用新的IFS值> 
@@ -24,6 +24,13 @@ IFS.OLD=$IFS
 
 ####  
 
-```
+```sh
 trap "echo 'Sorry ! I have trapped Ctrl-C ' " SIGINT
+```
+
+
+### Linux的alternatives命令替换选择软件的版本
+
+```bash
+alternatives
 ```
