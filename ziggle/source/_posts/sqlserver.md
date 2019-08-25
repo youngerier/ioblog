@@ -226,7 +226,7 @@ FROM
 
 `https://docs.microsoft.com/zh-cn/sql/t-sql/queries/select-transact-sql?view=sql-server-2017`
 
-```
+```sql
 1. FROM
 2. ON
 3. JOIN
@@ -238,4 +238,23 @@ FROM
 9. DISTINCT
 10. ORDER BY
 11. TOP
+```
+
+### 创建链接服务器
+
+```sql
+/* 创建链接服务器 */
+exec sp_addlinkedserver 'srv_lnk','','sqloledb','条码数据库IP地址'
+exec sp_addlinkedsrvlogin 'srv_lnk','false',null,'用户名','密码'
+go
+
+/* 查询示例 */
+SELECT A.ListCode
+FROM srv_lnk.条码数据库名.dbo.ME_ListCode A, IM_BarLend B
+WHERE A.ListCode=B.ListCode
+go
+
+/* 删除链接服务器 */
+exec sp_dropserver 'srv_lnk','droplogins'
+
 ```
