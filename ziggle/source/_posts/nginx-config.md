@@ -289,3 +289,33 @@ http {
   }
 }
 ```
+
+
+
+### nginx 日志记录自定义请求头
+
+Client send to server a custom header. Sample, send a device_id header to server. In nginx, we capture this header and write to access_log for debug, monitor, route request. We need to config nginx that:
+
+Enable underscores directive in http selection.
+
+```conf
+underscores_in_headers on;
+```
+
+Set header to a variable (if header is custom_header, variable is http_ + custom_header
+
+```conf
+proxy_set_header device_id $http_device_id;
+```
+
+Re-config log format in nginx config
+
+```conf
+log_format main '"device_id:$http_device_id"'
+```
+
+Send a request with custom header
+
+```sh
+curl -X POST -H 'device_id:57cfd83ee4b094690a1db5d6' https://localhost.local/api/log/write
+```
