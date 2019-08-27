@@ -58,3 +58,13 @@ tags:
             return sb.ToString();
         }
 ```
+
+### Multiple Active Result Sets (MARS)
+
+
+多个活动结果集 (MARS) 是一项用于 SQL Server 的功能，可用来对单个连接执行多个批处理。 如果对 SQL Server 启用了 MARS，使用的每个命令对象将向该连接添加一个会话。
+```c#
+string connectionString = "Data Source=MSSQL1;" +   
+    "Initial Catalog=AdventureWorks;Integrated Security=SSPI;" +  
+    "MultipleActiveResultSets=True";
+```
