@@ -1,0 +1,16 @@
+{
+    "datacenter": "dc1",
+    "data_dir": "./data",
+    "log_level": "INFO",
+    "node_name": "n01",
+    "server": true,
+    "ui": true,
+    "bind_addr": "0.0.0.0",
+    "client_addr": "0.0.0.0",
+    "bootstrap_expect": 3,
+    "retry_interval": "3s",
+    "raft_protocol": 3,
+    "enable_debug": false,
+    "rejoin_after_leave": true,
+    "enable_syslog": false
+}

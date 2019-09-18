@@ -23,3 +23,12 @@ docker run --name foo-mysql -e MYSQL_ROOT_PASSWORD=passwd -e MYSQL_ROOT_HOST=% -
 docker exec -it foo-mysql mysql -u root -p 
 ALTER USER 'root'@'localhost' IDENTIFIED BY '<password>';
 ```
+
+
+
+
+### docker rabbitmq
+
+```bash
+docker run -d --hostname some-rabbit --name some-rabbit --network some-network -e RABBITMQ_ERLANG_COOKIE='123456' rabbitmq:3
+```
