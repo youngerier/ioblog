@@ -8,6 +8,23 @@ tags:
 在centos 5/6 等版本中，资源限制的配置可以在`/etc/security/limits.conf` 设置，针对root/user等各个用户或者*代表所有用户来设置。 当然，/etc/security/limits.d/ 中可以配置，系统是先加载limits.conf然后按照英文字母顺序加载limits.d目录下的配置文件，后加载配置覆盖之前的配置。 一个配置示例如下：
 
 ```conf
+[root@ziggle-linux yum.repos.d]# cat /etc/security/limits.conf 
+# /etc/security/limits.conf
+#
+#This file sets the resource limits for the users logged in via PAM.
+#It does not affect resource limits of the system services.
+#
+#Also note that configuration files in /etc/security/limits.d directory,
+#which are read in alphabetical order, override the settings in this
+#file in case the domain is the same or more specific.
+#That means for example that setting a limit for wildcard domain here
+#can be overriden with a wildcard setting in a config file in the
+#subdirectory, but a user specific setting here can be overriden only
+#with a user specific setting in the subdirectory.
+
+```
+
+```conf
 *     soft   nofile    100000
 *     hard   nofile    100000
 *     soft   nproc     100000
