@@ -46,7 +46,7 @@ WantedBy=multi-user.target
 其中: 
     - `WorkingDirectory` : app运行目录
     - `SyslogIdentifier` : syslog 前缀
-    - `SuccessExitStatus` : JVM 成功推出码 `143` 
+    - `SuccessExitStatus` : JVM 成功退出码 `143` 
     - `WorkingDirectory` and `User` 不能用环境变量
 
 ### systemd fd limit 

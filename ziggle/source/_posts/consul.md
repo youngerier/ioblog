@@ -164,3 +164,42 @@ RestartSec=1
 WantedBy=multi-user.target
 ```
 {% asset_img consul_env.png consul_env.png %}
+
+
+
+#### 清理不活动的service
+
+ - 依赖库
+```cmd
+npm i request
+```
+ - 执行脚本
+```js
+var request = require('request');
+
+request.get({
+    url: `http://xxx:8500/v1/health/state/critical`,
+    headers: { 'X-Consul-Token': 'hidden' }
+}, function (e, r, b) {
+    cb(JSON.parse(b))
+})
+
+
+
+function cb(servicesList) {
+    servicesList.forEach(i => {
+        request.put({
+            url: `http://xxx:8500/v1/agent/service/deregister/${i.ServiceID}`,
+            method: 'put',
+            headers: {
+                'X-Consul-Token': 'hidden'
+            }
+        },
+            function (e, r, bodby) {
+                console.log('error:', e); // Print the error if one occurred
+                console.log('statusCode:', r && r.statusCode); // Print the response status code if a response was received
+            });
+    })
+
+}
+```
