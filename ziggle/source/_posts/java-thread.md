@@ -38,3 +38,23 @@ await的重载方法：await(long timeout, TimeUnit unit)可以设置最大等�
 
 ### JUC之CountDownLatch
 `CountDownLatch`允许一个或多个线程等待其他线程完成操作。定义`CountDownLatch`的时候，需要传入一个正数来初始化计数器（虽然传入0也可以，但这样的话CountDownLatch没什么实际意义）。其countDown方法用于递减计数器，await方法会使当前线程阻塞，直到计数器递减为0。所以`CountDownLatch`常用于多个线程之间的协调工作。
+
+
+#### threadpool 关闭方法
+```java
+    threadPool.shutdown(); // Disable new tasks from being submitted
+        // 设定最大重试次数
+        try {
+            // 等待 60 s
+            if (!threadPool.awaitTermination(60, TimeUnit.SECONDS)) {
+                // 调用 shutdownNow 取消正在执行的任务
+                threadPool.shutdownNow();
+                // 再次等待 60 s，如果还未结束，可以再次尝试，或则直接放弃
+                if (!threadPool.awaitTermination(60, TimeUnit.SECONDS))
+                    System.err.println("线程池任务未正常执行结束");
+            }
+        } catch (InterruptedException ie) {
+            // 重新调用 shutdownNow
+            threadPool.shutdownNow();
+        }
+```
