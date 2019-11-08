@@ -312,4 +312,8 @@ create table myschema.TestTb(
     customer_name varchar(255) not null default(''),
     created_time datetime not null default getdate()
 )
+
+
+Select * From master.sys.sysprocesses Where Blocked <> 0
+
 ```
