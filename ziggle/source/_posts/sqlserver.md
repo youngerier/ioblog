@@ -258,3 +258,58 @@ go
 exec sp_dropserver 'srv_lnk','droplogins'
 
 ```
+
+#### sys.sysprocesses 说明
+```sql
+SELECT 
+spid, -- sql session id
+kpid, -- windows thread id
+blocked,  -- 值大于0表示阻塞,  值为本身进程ID表示io操作
+loginame,
+cmd,       -- 当前正在执行的命令。
+open_tran, -- 进程的打开事务数
+status,
+program_name,
+waittime, -- (ms)
+db_name(dbid),
+uid,
+cpu,
+physical_io,
+memusage,
+login_time,
+last_batch,
+ecid,
+hostname,
+hostprocess,
+lastwaittype,
+waitresource,
+net_address,
+net_library,
+stmt_start,
+stmt_end,
+request_id
+FROM sys.sysprocesses WHERE  spid > 50
+```
+
+#### sqlserver schema
+
+```sql
+-- 完全限定的对象名称现在包含四部分：server.database.schema.object
+
+use test 
+go
+
+drop schema myschema
+go
+
+create schema myschema
+go
+
+alter schema myschema transfer dbo.Mytable
+
+create table myschema.TestTb(
+    id bigint not null identity(1,1) ,
+    customer_name varchar(255) not null default(''),
+    created_time datetime not null default getdate()
+)
+```
