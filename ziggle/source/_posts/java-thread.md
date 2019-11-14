@@ -58,3 +58,42 @@ await的重载方法：await(long timeout, TimeUnit unit)可以设置最大等�
             threadPool.shutdownNow();
         }
 ```
+
+
+### 线程池 
+调用 Executor 的 shutdown() 方法会等待线程都执行完毕之后再关闭，但是如果调用的是 shutdownNow() 方法，则相当于调用每个线程的 interrupt() 方法。
+以下使用 Lambda 创建线程，相当于创建了一个匿名内部线程。
+
+```java
+public static void main(String[] args) {
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    executorService.execute(() -> {
+        try {
+            Thread.sleep(2000);
+            System.out.println("Thread run");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    });
+    executorService.shutdownNow();
+    System.out.println("Main run");
+}
+```
+```java
+Main run
+java.lang.InterruptedException: sleep interrupted
+    at java.lang.Thread.sleep(Native Method)
+    at ExecutorInterruptExample.lambda$main$0(ExecutorInterruptExample.java:9)
+    at ExecutorInterruptExample$$Lambda$1/1160460865.run(Unknown Source)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+    at java.lang.Thread.run(Thread.java:745)
+```
+如果只想中断 Executor 中的一个线程，可以通过使用 submit() 方法来提交一个线程，它会返回一个 Future<?> 对象，通过调用该对象的 cancel(true) 方法就可以中断线程。
+
+```java
+Future<?> future = executorService.submit(() -> {
+    // ..
+});
+future.cancel(true);
+```
