@@ -313,7 +313,32 @@ create table myschema.TestTb(
     created_time datetime not null default getdate()
 )
 
-
+-- 数据库锁定/block情况
 Select * From master.sys.sysprocesses Where Blocked <> 0
 
+```
+
+#### 以下示例为 SQL Server 实例中的每个数据库返回后台队列中活动异步作业的数量。
+
+```sql
+SELECT DB_NAME(database_id) AS [Database], COUNT(*) AS [Active Async Jobs]  
+FROM sys.dm_exec_background_job_queue  
+WHERE in_progress = 1  
+GROUP BY database_id;  
+GO  
+```
+
+#### 收集查询自有连接有关信息的典型查询。
+
+```sql
+SELECT   
+    c.session_id, c.net_transport, c.encrypt_option,   
+    c.auth_scheme, s.host_name, s.program_name,   
+    s.client_interface_name, s.login_name, s.nt_domain,   
+    s.nt_user_name, s.original_login_name, c.connect_time,   
+    s.login_time   
+FROM sys.dm_exec_connections AS c  
+JOIN sys.dm_exec_sessions AS s  
+    ON c.session_id = s.session_id  
+WHERE c.session_id = @@SPID;
 ```
