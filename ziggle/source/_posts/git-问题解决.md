@@ -89,3 +89,8 @@ git fetch origin master:master
 
 - Use git log --diff-filter=D --summary to get all the commits which have deleted files and the files deleted;
 - Use git checkout $commit~1 path/to/file.ext to restore the deleted file.
+
+
+linux /windows git status 显示不同
+
+git config --global core.autocrlf true
