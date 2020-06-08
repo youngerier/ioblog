@@ -65,18 +65,18 @@ git config --global alias.tree "log --oneline --decorate --all --graph"
 $ git rm -r -n --cached "bin/"   ，此命令是展示要删除的文件表预览
 ```
 
-## Unstaging a Staged File
+### Unstaging a Staged File
 
 ```git
 git reset HEAD benchmarks.rb
 ```
 
-## Unmodifying a Modified File
+### Unmodifying a Modified File
 
 ```git
 git checkout --benchmarks.rb
 ```
-## 怎样在一个分支拉去另一个分支的远程代码
+### 怎样在一个分支拉去另一个分支的远程代码
 
 ```sh
 git fetch <remote> <sourceBranch>:<destinationBranch>
@@ -85,7 +85,7 @@ git fetch origin master:master
 
 
 
-## 找到一个被删除的文件并恢复
+### 找到一个被删除的文件并恢复
 
 - Use git log --diff-filter=D --summary to get all the commits which have deleted files and the files deleted;
 - Use git checkout $commit~1 path/to/file.ext to restore the deleted file.
@@ -94,3 +94,14 @@ git fetch origin master:master
 linux /windows git status 显示不同
 
 git config --global core.autocrlf true
+
+
+### 
+在默认设置下，中文文件名在工作区状态输出，查看历史更改概要，以及在补丁文件中，文件名的中文不能正确地显示，而是显示为八进制的字符编码，示例如下：
+  $ git status -s
+  ?? "\350\257\264\346\230\216.txt\n
+   $ printf "\350\257\264\346\230\216.txt\n"
+
+```
+git config --global core.quotepath false
+```
