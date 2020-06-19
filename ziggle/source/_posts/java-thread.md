@@ -97,3 +97,23 @@ Future<?> future = executorService.submit(() -> {
 });
 future.cancel(true);
 ```
+
+
+### Java并发之线程中断
+
+线程在不同状态下对于中断所产生的反应
+     线程一共6种状态，分别是NEW，RUNNABLE，BLOCKED，WAITING，TIMED_WAITING，TERMINATED（Thread类中有一个State枚举类型列举了线程的所有状态）。下面我们就将把线程分别置于上述的不同种状态，然后看看我们的中断操作对它们的影响。
+
+1、NEW和TERMINATED
+     线程的new状态表示还未调用start方法，还未真正启动。线程的terminated状态表示线程已经运行终止。这两个状态下调用中断方法来中断线程的时候，Java认为毫无意义，所以并不会设置线程的中断标识位，什么事也不会发生。例如：
+```java
+public static void main(String[] args) throws InterruptedException {
+
+    Thread thread = new MyThread();
+    System.out.println(thread.getState());
+
+    thread.interrupt();
+
+    System.out.println(thread.isInterrupted());
+}
+```
