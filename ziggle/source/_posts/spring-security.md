@@ -4,7 +4,8 @@ date: 2019-11-26 17:32:23
 tags:
 ---
 
-org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+### WebSecurityConfigurerAdapter
+`org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter`
 
 ```java
      * spring security filter chain
