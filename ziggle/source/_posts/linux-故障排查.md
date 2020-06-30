@@ -2,6 +2,7 @@
 title: linux-故障排查
 date: 2019-06-27 11:05:03
 tags:
+- linux
 ---
 
 #### 找到占用CPU最高的线程

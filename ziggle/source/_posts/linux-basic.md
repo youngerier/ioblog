@@ -7,13 +7,13 @@ tags:
 
 
 # 重要文件以及位置
-- /dev/null  # 输入流blackhole
+- `/dev/null`  # 输入流 `blackhole`
 
 ## /etc/profile
-- 系统环境变量,为每个用户设置环境信息,当用户登陆时执行,并从/etc/profile.d 目录的配置文件中搜集shell 的设置.
+- 系统环境变量,为每个用户设置环境信息,当用户登陆时执行,并从`/etc/profile.d` 目录的配置文件中搜集 `shell` 的设置.
 
 ## /etc/bashrc
-- 在执行完/etc/profile 之后如果用户是shell 运行的是bash,就会执行.可以用来设置
+- 在执行完`/etc/profile` 之后如果用户是shell 运行的是bash,就会执行.可以用来设置
 每次登陆的时候都会去获取这些新的环境变量或者做某些特殊的操作,但是仅仅在登陆时
 
 ## ~/.bashrc
@@ -32,7 +32,7 @@ tags:
 - shell变量 shell变量是由shell程序设置的特殊变量.shell变量中有一部分是环境变量,有一部分是局部变量,这些变量保证了shell的正常运行.
 
 查看shell变量
-```nil
+```bash
  root@ziggle:~# env
 ```
 ## set
@@ -54,12 +54,12 @@ tags:
 |  变量 |含义   |
 | ------------ | ------------ |
 | $0  |当前脚本的名字   |
-| $n  | 传递给脚本或函数的参数，n是一个数字，表示第几个参数，例如，第一个参数是$1，第二个参数是$2。  |
+| $n  | 传递给脚本或函数的参数, n是一个数字, 表示第几个参数, 例如, 第一个参数是$1, 第二个参数是$2。  |
 | $#  | 传递给脚本或函数的参数个数|
 | $*  | 传递给脚本或函数的所有参数|
-| $@  | 传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 $* 稍有不同|
-| $?  |上个命令的退出状态，或函数的返回值 |
-| $$  | 当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID|
+| $@  | 传递给脚本或函数的所有参数。被双引号(“ “)包含时, 与 $* 稍有不同|
+| $?  |上个命令的退出状态, 或函数的返回值 |
+| $$  | 当前Shell进程ID。对于 Shell 脚本, 就是这些脚本所在的进程ID|
 
 
 ## 转义字符
@@ -67,9 +67,9 @@ tags:
 ```
 转义字符	含义
 \\	反斜杠
-\a	警报，响铃
+\a	警报, 响铃
 \b	退格（删除键）
-\f	换页(FF)，将当前位置移到下页开头
+\f	换页(FF), 将当前位置移到下页开头
 \n	换行
 \r	回车
 \t	水平制表符（tab键） 
@@ -77,7 +77,7 @@ tags:
 ```
 
 ## 命令替换
-命令替换是指Shell可以先执行命令，将输出结果暂时保存，在适当的地方输出。
+命令替换是指Shell可以先执行命令, 将输出结果暂时保存, 在适当的地方输出。
 语法：
 ```nil
 `command`
@@ -99,7 +99,7 @@ tar Jxvf Python-3.5.1.tar.xz
  make && make install
 ```
 ## 
-- 备份旧版本 Python 
+- 备份旧版本 `Python` 
 ```
 mv /usr/bin/python /usr/bin/python2.7
 ```
@@ -108,12 +108,12 @@ mv /usr/bin/python /usr/bin/python2.7
 ln -s /usr/local/python3/bin/python3.5 /usr/bin/python 
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip
 ```
-- 检验 Python 及 pip 版本 
+- 检验 `Python` 及 `pip` 版本 
 ```
 python -V 
 pip -V
 ```
-> CentOS yum会使用python 更改错误文件python版本为老版本
+> `CentOS` `yum` 会使用 `python` 更改错误文件 `python` 版本为老版本
 
 ## 清空文件内容
 > 方法1 
@@ -132,12 +132,12 @@ $ truncate -s 0 access.log
 
 
 ## source 
-当修改 /etc/profile 文件时,立即生效文件
+当修改 `/etc/profile` 文件时,立即生效文件
 ```sh
 source filename # 或
 . filename
 ```
-source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录
+source命令通常用于重新执行刚修改的初始化文件, 使之立即生效, 而不必注销并重新登录
 
 ## Linux network config
 ```conf
@@ -195,10 +195,10 @@ nameserver 114.114.114.114
 export http_proxy=http://127.0.0.1:1080
 export https_proxy=http://127.0.0.1:1080
 ```
-> 使用配置文件(wget)
+> 使用配置文件(`wget`)
 
-为wget配置代理
-```nil
+为`wget`配置代理
+```bash
 ~/.wgetrc
 # They will override the value in the environment.
  http_proxy=http://127.0.0.1:1080
@@ -208,16 +208,16 @@ export https_proxy=http://127.0.0.1:1080
  use_proxy=on
 ```
 
-top 命令的使用
-top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，常用于服务端性能分析。
-top 结果分为两个部分
+`top` 命令的使用
+`top` 命令是 `Linux` 下常用的性能分析工具, 能够实时显示系统中各个进程的资源占用状况, 常用于服务端性能分析。
+`top` 结果分为两个部分
  * 统计信息： 前五行是系统整体的统计信息；
- * 进程信息：统计信息下方类似表格区域显示的是各个进程的详细信息，默认5秒刷新一次。
+ * 进程信息：统计信息下方类似表格区域显示的是各个进程的详细信息, 默认5秒刷新一次。
 
  {% asset_img top.png top%}
 
 
- top 命令选项:
+ `top` 命令选项:
 
  -b：以批处理模式操作；
 -c：显示完整的治命令；
@@ -233,7 +233,7 @@ top 结果分为两个部分
  {% asset_img top-keymap.png top_keymap%}
 
 
-top 命令交互:
+`top` 命令交互:
 
 
 
@@ -283,7 +283,7 @@ systemctl is-enabled ssocks.service #查询服务是否开机启动
 ls /etc/systemd/system/multi-user.target.wants/
 ```
 
-*一旦修改配置文件，就要让 SystemD 重新加载配置文件，然后重新启动，否则修改不会生效。*
+*一旦修改配置文件, 就要让 SystemD 重新加载配置文件, 然后重新启动, 否则修改不会生效。*
 ```sh
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart ssocks.service
@@ -294,7 +294,7 @@ $ sudo systemctl restart ssocks.service
 # 重启系统
 $ sudo systemctl reboot
 
-# 关闭系统，切断电源
+# 关闭系统, 切断电源
 $ sudo systemctl poweroff
 
 # CPU停止工作
@@ -317,26 +317,26 @@ $ sudo systemctl rescue
 ```conf
 Description：简短描述
 Documentation：文档地址
-Requires：当前 Unit 依赖的其他 Unit，如果它们没有运行，当前 Unit 会启动失败
-Wants：与当前 Unit 配合的其他 Unit，如果它们没有运行，当前 Unit 不会启动失败
-BindsTo：与Requires类似，它指定的 Unit 如果退出，会导致当前 Unit 停止运行
-Before：如果该字段指定的 Unit 也要启动，那么必须在当前 Unit 之后启动
-After：如果该字段指定的 Unit 也要启动，那么必须在当前 Unit 之前启动
+Requires：当前 Unit 依赖的其他 Unit, 如果它们没有运行, 当前 Unit 会启动失败
+Wants：与当前 Unit 配合的其他 Unit, 如果它们没有运行, 当前 Unit 不会启动失败
+BindsTo：与Requires类似, 它指定的 Unit 如果退出, 会导致当前 Unit 停止运行
+Before：如果该字段指定的 Unit 也要启动, 那么必须在当前 Unit 之后启动
+After：如果该字段指定的 Unit 也要启动, 那么必须在当前 Unit 之前启动
 Conflicts：这里指定的 Unit 不能与当前 Unit 同时运行
-Condition：当前 Unit 运行必须满足的条件，否则不会运行
-Assert：当前 Unit 运行必须满足的条件，否则会报启动失败
+Condition：当前 Unit 运行必须满足的条件, 否则不会运行
+Assert：当前 Unit 运行必须满足的条件, 否则会报启动失败
 
 ```
 
-* [Service]区块用来 Service 的配置，只有 Service 类型的 Unit 才有这个区块。它的主要字段如下。*
+* [Service]区块用来 Service 的配置, 只有 Service 类型的 Unit 才有这个区块。它的主要字段如下。*
 ```
 Type：定义启动时的进程行为。它有以下几种值。
-Type=simple：默认值，执行ExecStart指定的命令，启动主进程
-Type=forking：以 fork 方式从父进程创建子进程，创建后父进程会立即退出
-Type=oneshot：一次性进程，Systemd 会等当前服务退出，再继续往下执行
+Type=simple：默认值, 执行ExecStart指定的命令, 启动主进程
+Type=forking：以 fork 方式从父进程创建子进程, 创建后父进程会立即退出
+Type=oneshot：一次性进程, Systemd 会等当前服务退出, 再继续往下执行
 Type=dbus：当前服务通过D-Bus启动
-Type=notify：当前服务启动完毕，会通知Systemd，再继续往下执行
-Type=idle：若有其他任务执行完毕，当前服务才会运行
+Type=notify：当前服务启动完毕, 会通知Systemd, 再继续往下执行
+Type=idle：若有其他任务执行完毕, 当前服务才会运行
 ExecStart：启动当前服务的命令
 ExecStartPre：启动当前服务之前执行的命令
 ExecStartPost：启动当前服务之后执行的命令
@@ -344,7 +344,7 @@ ExecReload：重启当前服务时执行的命令
 ExecStop：停止当前服务时执行的命令
 ExecStopPost：停止当其服务之后执行的命令
 RestartSec：自动重启当前服务间隔的秒数
-Restart：定义何种情况 Systemd 会自动重启当前服务，可能的值包括always（总是重启）、on-success、on-failure、on-abnormal、on-abort、on-watchdog
+Restart：定义何种情况 Systemd 会自动重启当前服务, 可能的值包括always（总是重启）、on-success、on-failure、on-abnormal、on-abort、on-watchdog
 TimeoutSec：定义 Systemd 停止当前服务之前等待的秒数
 Environment：指定环境变量
 ```
@@ -359,15 +359,15 @@ ssh -i ~/.ssh/my-ssh-key [USERNAME]@[EXTERNAL_IP_ADDRESS]
 
 wsl 连接配置
 
-装上 ubuntu on windows 后，默认要先打开 cmd, 再运行 bash 进入 ubuntu 的 shell。 
-但是这个shell很难看，配色不好就算了，还存在各种复制粘贴麻烦、默认没进入 home 目录、各种报警声等问题。所以尝试用 xshell 登陆 ubuntu 
+装上 ubuntu on windows 后, 默认要先打开 cmd, 再运行 bash 进入 ubuntu 的 shell。 
+但是这个shell很难看, 配色不好就算了, 还存在各种复制粘贴麻烦、默认没进入 home 目录、各种报警声等问题。所以尝试用 xshell 登陆 ubuntu 
 这里主要讲几个关键步骤
 
-1. 卸载 ssh server
+1. 卸载 ssh-server
 
 sudo apt-get remove openssh-server
 
-2. 安装 ssh server
+2. 安装 ssh-server
 
 sudo apt-get install openssh-server
 
@@ -377,7 +377,7 @@ sudo apt-get install openssh-server
 sudo vim /etc/ssh/sshd_config
 需要修改以下几项：
 
-Port 2222  #默认的是22，但是windows有自己的ssh服务，也是监听的22端口，所以这里要改一下
+Port 2222  #默认的是22, 但是windows有自己的ssh服务, 也是监听的22端口, 所以这里要改一下
 UsePrivilegeSeparation no
 PasswordAuthentication yes
 AllowUsers youusername # 这里改成你登陆WSL用的
@@ -385,7 +385,7 @@ AllowUsers youusername # 这里改成你登陆WSL用的
 4. 启动 ssh server
  
 sudo service ssh --full-restart
-现在就可以用 xshell 登陆 ubuntu on windows 了，IP 是 127.0.0.1, 但是要注意，cmd 的窗口还不能关掉。关掉后 sshd 服务也会关掉，连接就断开了。这个问题目前还没找到解决办法。
+现在就可以用 xshell 登陆 ubuntu on windows 了, IP 是 127.0.0.1, 但是要注意, cmd 的窗口还不能关掉。关掉后 sshd 服务也会关掉, 连接就断开了。这个问题目前还没找到解决办法。
 
 
 rpm -ivh jdk-10.interim.update.patch_linux-x64_bin.rpm
@@ -396,12 +396,12 @@ rpm -ivh jdk-10.interim.update.patch_linux-x64_bin.rpm
   - 常用方法（原理是把该用户加到可以直接使用 sudo 的一个权限状态而已）：
 
 编辑配置文件：vim /etc/sudoers
-找到 98 行（预估），有一个：root ALL=(ALL) ALL，在这一行下面再增加一行，效果如下：
+找到 98 行（预估）, 有一个：root ALL=(ALL) ALL, 在这一行下面再增加一行, 效果如下：
 ```conf
  root    ALL=(ALL)   ALL
  youmeek    ALL=(ALL)   ALL
 ```
  - 另一种方法：
 
-编辑系统用户的配置文件：vim /etc/passwd，找到 root 和 youmeek 各自开头的那一行，比如 root 是：root:x:0:0:root:/root:/bin/zsh，这个代表的含义为：用户名:密码:UserId:GroupId:描述:家目录:登录使用的 shell
-通过这两行对比，我们可以直接修改 youmeek 所在行的 UserId 值 和 GroupId 值，都改为 0。
+编辑系统用户的配置文件：vim /etc/passwd, 找到 root 和 youmeek 各自开头的那一行, 比如 root 是：root:x:0:0:root:/root:/bin/zsh, 这个代表的含义为：用户名:密码:UserId:GroupId:描述:家目录:登录使用的 shell
+通过这两行对比, 我们可以直接修改 youmeek 所在行的 UserId 值 和 GroupId 值, 都改为 0。

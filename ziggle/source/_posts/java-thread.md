@@ -2,6 +2,7 @@
 title: java-thread
 date: 2019-07-10 18:37:00
 tags:
+- thread
 ---
 
 ref = `https://mrbird.cc/JUC-CyclicBarrier.html`

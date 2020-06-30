@@ -2,6 +2,7 @@
 title: linux-shell
 date: 2019-07-03 16:16:56
 tags:
+ - shell
 ---
 
 
@@ -34,3 +35,7 @@ trap "echo 'Sorry ! I have trapped Ctrl-C ' " SIGINT
 ```bash
 alternatives
 ```
+
+###　根据内存占用排序进程
+
+`ps aux --sort -rss`

@@ -2,6 +2,7 @@
 title: jvm
 date: 2018-12-12 11:00:50
 tags:
+- jvm
 ---
 
 ## `JVM` 内存模型
