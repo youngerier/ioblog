@@ -18,3 +18,13 @@ tags:
 - EN remove this app package from the device
 - CHS 从设备删除程序包
  - (`-k` means keep the data and cache directories) #不删除程序运行所产生的数据和缓存目录(如软件的数据库文件)
+
+
+### 清除adb logcat 缓存
+``` 
+ adb logcat -c 
+```
+### adb 输出指定包的日志 并重定向
+```
+adb -d logcat com.xx.mm:I *:* | Tee-Object login0713-03.log
+```
