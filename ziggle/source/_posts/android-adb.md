@@ -28,3 +28,8 @@ tags:
 ```
 adb -d logcat com.xx.mm:I *:* | Tee-Object login0713-03.log
 ```
+
+### dx.bat 
+
+cd MyApplication\app\build\intermediates\javac\debug\classes
+build-tools\29.0.3\dx.bat --dex --output=./classes.dex .\com\example\myapplication\ExampleFunction.class
