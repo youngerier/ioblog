@@ -130,3 +130,23 @@ FTP协议及时基于此协议
 
 
 {% asset_img tcp.png tcp.png%}
+
+> 三次握手
+{% asset_img tcpconn.png tcp.png%}
+> 四次挥手
+{% asset_img tcpclose.png tcp.png%}
+
+> 状态解释
+```
+LISTEN：侦听来自远方的TCP端口的连接请求
+SYN-SENT：再发送连接请求后等待匹配的连接请求（如果有大量这样的状态包，检查是否中招了）
+SYN-RECEIVED：再收到和发送一个连接请求后等待对方对连接请求的确认（如有大量此状态估计被flood攻击了）
+ESTABLISHED：代表一个打开的连接
+FIN-WAIT-1：等待远程TCP连接中断请求，或先前的连接中断请求的确认
+FIN-WAIT-2：从远程TCP等待连接中断请求
+CLOSE-WAIT：等待从本地用户发来的连接中断请求
+CLOSING：等待远程TCP对连接中断的确认
+LAST-ACK：等待原来的发向远程TCP的连接中断请求的确认（不是什么好东西，此项出现，检查是否被攻击）
+TIME-WAIT：等待足够的时间以确保远程TCP接收到连接中断请求的确认
+CLOSED：没有任何连接状态
+```
