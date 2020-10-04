@@ -135,6 +135,7 @@ FTP协议及时基于此协议
 {% asset_img tcpconn.png tcp.png%}
 > 四次挥手
 {% asset_img tcpclose.png tcp.png%}
+{% asset_img tcp_n.png tcp.png%}
 
 > 状态解释
 ```
