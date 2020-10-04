@@ -127,3 +127,6 @@ TCP是主机对主机层的传输控制协议，提供可靠的连接服务，�
 第三次握手：主机A收到后检查ack number是否正确，即第一次发送的seq number+1，以及位码ack是否为1，若正确，主机A会再发送ack number=(主机B的seq+1)，ack=1，主机B收到后确认seq值与ack=1则连接建立成功。
 
 FTP协议及时基于此协议
+
+
+{% asset_img tcp.png tcp.png%}

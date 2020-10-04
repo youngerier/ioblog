@@ -33,3 +33,9 @@ adb -d logcat com.xx.mm:I *:* | Tee-Object login0713-03.log
 
 cd MyApplication\app\build\intermediates\javac\debug\classes
 build-tools\29.0.3\dx.bat --dex --output=./classes.dex .\com\example\myapplication\ExampleFunction.class
+
+###　链接指定设备
+
+adb connect [ip]
+adb disconnect [ip]
+adb -s shell 设备id[ip:port]
