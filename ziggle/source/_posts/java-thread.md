@@ -118,3 +118,53 @@ public static void main(String[] args) throws InterruptedException {
     System.out.println(thread.isInterrupted());
 }
 ```
+
+#### 什么是上下文切换
+
+多线程编程中线程数一般大于cpu的个数, 而一个cpu在任意时刻只能被一个线程使用,为了让这些线程都可以有效执行, cpu采用的是为每个线程分配时间片并轮转的形式, 当一个线程的时间片用完的时候就会重新处于就绪状态让其他线程使用,这个过程就是一次上下文切换
+
+当cpu切换到另一个任务之前会先保存自己的状态, 以便于切换回这个任务, 任务从保存到在加载的过程就是一次上下文切换
+
+
+#### synchronized
+使用方式
+1 修饰实例方法, 
+```java
+
+public class Singleton{
+ // 禁止指令重排
+ private volatile static Singleton instance;
+
+ private Singletion(){}
+
+ public static Signleton getInstance(){
+    // 没有初始化才进行下面逻辑
+     if(instance !=null ){
+         synchronized(Singleton.class){
+             if(instance  == null){
+                 instance = new Singleton
+             }
+         }
+     }
+     return instance;
+ }   
+}
+```
+字节码
+使用monitorenter monitorexit 指令, 
+
+
+synchronized /ReentrantLock
+- 都是可重入锁, 自己可以再次获取自己的内部锁, 比如一个线程获取某个对象的锁, 这个对象的锁还没有释放, 当再次获取这个锁的时候还是可以获取的
+- sync.. 依赖于jvm ReentrantLock java实现(lock(),unlock() ,try/finally 实现)
+- ReentrantLock 添加了一些高级功能, 等待可中断, 可以实现公平锁, 可以实现选择性通知
+- ReentrantLock 可以指定是公平锁还是非公平锁 默认非公平锁, synchronized 只能是非公平锁
+- 性能已经不是主要选择项
+
+
+#### ThreadPoolExecutor 饱和策略定义
+
+AbortPolicy
+CallerRunsPolicy
+DiscardPolicy
+DiscardOldPolicy
