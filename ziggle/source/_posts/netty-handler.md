@@ -28,5 +28,5 @@ JVM 会将堆内存 Buffer 拷贝一份到直接内存中，然后才写入 Sock
 2. Netty 提供了组合 Buffer 对象，可以聚合多个 ByteBuffer 对象，用户可以像操作一个 Buffer 那样
 方便的对组合 Buffer 进行操作，避免了传统通过内存拷贝的方式将几个小 Buffer 合并成一个大的
 Buffer。
-3. Netty的文件传输采用了transferTo方法，它可以直接将文件缓冲区的数据发送到目标Channel，
+3. Netty的文件传输采用了`transferTo`方法，它可以直接将文件缓冲区的数据发送到目标Channel，
 避免了传统通过循环 write 方式导致的内存拷贝问题
