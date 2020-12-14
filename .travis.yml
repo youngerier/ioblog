@@ -11,7 +11,7 @@ install:
 before_script:
 # script: true
 script: sh ../deploy.sh
-  
+
 after_script:
   - echo pwd
   - cd ./public
@@ -33,7 +33,6 @@ branches:
   only:
     - master
     - /^deploy-.*$/
-
 
 # deploy:
 #   provider: pages

@@ -305,3 +305,13 @@ set "MAVEN_OPTS=-Duser.language=en -Dfile.encoding=UTF-8"
 ```sh
 export MAVEN_OPTS='-Duser.language=en -Dfile.encoding=UTF-8'
 ```
+
+### 下载指定jar
+- jar
+```
+mvn dependency:get -Dartifact=junit:junit:4.12:jar
+```
+- source
+```
+mvn dependency:get -Dartifact=junit:junit:4.12:jar:sources
+```
