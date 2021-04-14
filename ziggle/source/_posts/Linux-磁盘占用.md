@@ -63,3 +63,10 @@ growpart /dev/vda 1
 ```bash
 resize2fs /dev/vda1
 ```
+
+```
+
+df -h   #整个磁盘空间
+du -h --max-depth=1  #看当前目录各子目录占用空间
+du -h -d 1 #同上，适用于mac系统
+```
