@@ -136,7 +136,7 @@ GO
 
 exec sp_who
 
-### 最消耗资源session
+### 执行时间长最消耗资源session
 ```sql
 SELECT TOP(50) qs.execution_count AS [Execution Count],
 (qs.total_logical_reads)*8/1024.0 AS [Total Logical Reads (MB)],
