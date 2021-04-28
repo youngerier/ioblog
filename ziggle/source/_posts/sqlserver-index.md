@@ -156,3 +156,11 @@ ORDER BY qs.execution_count DESC OPTION (RECOMPILE);-- frequently ran query
 -- ORDER BY [Avg Worker Time (ms)] DESC OPTION (RECOMPILE);-- High CPU query
 -- ORDER BY [Avg Elapsed Time (ms)] DESC OPTION (RECOMPILE);-- Long Running query
 ```
+
+### 加速索引重建
+- 使用 `SORT_IN_TEMPDB` 加速重建索引,tempdb 与userdatabase 不在相同磁盘上有效
+```
+ALTER INDEX [NameOfTheIndex] ON [SchemaName].[TableName]
+REBUILD PARTITION = ALL WITH (SORT_IN_TEMPDB = ON)
+GO
+```
