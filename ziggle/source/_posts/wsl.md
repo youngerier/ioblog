@@ -46,3 +46,14 @@ AllowUsers youusername # 这里改成你登陆WSL用的
 ## reboot ssh
 
 > sudo service ssh --full-restart
+
+
+linux-brew install hisory version
+
+```
+brew uninstall <package> # Note 0
+brew tap-new <yourname>/<package> # Note 1
+brew extract --version <version_you_want> composer <yourname>/<package> # Note 2
+brew install <package>@<version>
+brew pin <package>@<version> # Note 3
+```
