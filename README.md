@@ -7,3 +7,8 @@
 
 # ziggllee
 [ziggllee](https://ziggllee.xyz "ziggllee")
+
+```shell
+$ node -v
+v10.24.1
+```
